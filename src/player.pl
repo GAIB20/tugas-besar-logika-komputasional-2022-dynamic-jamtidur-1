@@ -1,8 +1,8 @@
 :- dynamic(player/9).
 
 /*Deklarasi Fakta*/
-player(v,'V',go,20000,0,0,[],[],[]).
-player(w,'W',go,20000,0,0,[],[],[]).
+player(v,'V',0,20000,0,0,[],[],[]).
+player(w,'W',0,20000,0,0,[],[],[]).
 
 printBuilding(A) :- A == 0,!, write('Tanah').
 printBuilding(A) :- A == 1,!, write('Bangunan 1').
