@@ -138,7 +138,7 @@ write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen
 currentLoc(Player, Loc):-player(Player, _,Loc,_,_,_,_,_,_).
 
 printCurloc:-currentLoc(w, X),
-write('     Current Location')
+write('     Current Location'),
 write('     W: '), write(X),
 currentLoc(v, Y),
 write('     V: '), write(Y).

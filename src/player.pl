@@ -1,8 +1,6 @@
 :- dynamic(player/9).
 
 /*Deklarasi Fakta*/
-harga(a1,'ITB','Institut Tidak Bobo', 200, 1000, 2000,3000, 3000).
-harga(a2,'ITS','Institut Tidak Bobo', 300, 1000, 2000,3000, 3000).
 player(v,'V',go,20000,0,0,[],[],[]).
 player(w,'W',go,20000,0,0,[],[],[]).
 
@@ -38,26 +36,26 @@ buyProperties(X,Property) :-
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[0|Buildings],Card)).
 
 buyProperties(X,Property) :- 
-    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
+    player(X,_,_,_,_,_,Properties,_,_),
     \+isNotIn(Property,Properties), !, 
     write('Properti sudah dimiliki').
 
 buyProperties(X,Property) :-
-    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
+    player(X,_,_,Money,_,_,_,_,_),
     checkPropertyValue(Property,Value),
     Money < Value, !,
     write('Uang tidak cukup').
 
-getIndex(A,[A|T],1) :- !.
-getIndex(A,[H|T],Idx1) :-
+getIndex(A,[A|_],1) :- !.
+getIndex(A,[_|T],Idx1) :-
     getIndex(A,T,Idx), Idx1 is Idx + 1.
 
 getValue([H|_],1,H) :- !.
-getValue([H|T],Idx,Value) :-
+getValue([_|T],Idx,Value) :-
     Idx1 is Idx-1,
     getValue(T,Idx1,Value).
 
-setValue(A,[H|T],1,[A|T]):-!.
+setValue(A,[_|T],1,[A|T]):-!.
 setValue(A,[H|T],Idx,[H|L1]):-
     Idx1 is Idx - 1,
     setValue(A,T,Idx1,L1).
@@ -68,7 +66,7 @@ getHarga(A,Value,Harga) :- Value == 2, !, harga(A,_,_, _,_,_,X,_), Harga is X.
 getHarga(A,Value,Harga) :- Value == 3, !, harga(A,_,_, _,_,_,_,X), Harga is X.
 
 upgradeBuilding(X,A) :-
-    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
+    player(X,_,_,_,_,_,Properties,Buildings,_),
     getIndex(A,Properties,Idx),
     getValue(Buildings,Idx,Value),
     Value >= 4, !,
@@ -88,10 +86,10 @@ upgradeBuilding(X,A) :-
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)).
 
 downgradeBuilding(X,A) :-
-    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
+    player(X,_,_,_,_,_,Properties,Buildings,_),
     getIndex(A,Properties,Idx),
     getValue(Buildings,Idx,Value),
-    getHarga(A,Value-1,Harga),
+    getHarga(A,Value-1,_),
     Value >0,
     !, write('Tidak bisa dijual lagi').
 downgradeBuilding(X,A) :-
@@ -113,8 +111,8 @@ check(Property,[H|T]) :-
     check(Property,T).
 
 isNotIn(Property,Properties)  :- 
-    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
-    player(Y,Username2,Location2,Money2,PropertiesValue2,Asset2,Properties2,Buildings2,Card2),
+    player(X,_,_,_,_,_,Properties,_,_),
+    player(Y,_,_,_,_,_,Properties2,_,_),
     X \= Y,
     check(Property,Properties),
     check(Property,Properties2).

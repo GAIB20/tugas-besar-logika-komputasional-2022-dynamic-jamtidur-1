@@ -18,7 +18,7 @@ start :-
     nowPlayer(X), player(X,Nama,_,_,_,_,_,_,_),
     write(Nama), write('.'), nl,
     write('Ketik map untuk melihat map.'), nl,
-    write('Ketik ingfo(<nama player>) untuk melihat detail pemain.')
+    write('Ketik ingfo(<nama player>) untuk melihat detail pemain.').
 
 ingfo(X) :-
     player(Player,X,_,_,_,_,_,_,_),
