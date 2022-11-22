@@ -8,6 +8,7 @@
 
 /* Status permainan */
 :- dynamic(isExit/1).
+:- dynamic(nowPlayer/1).
 isExit(1).
 nowPlayer(v).
 
@@ -18,7 +19,9 @@ start :-
     nowPlayer(X), player(X,Nama,_,_,_,_,_,_,_),
     write(Nama), write('.'), nl,
     write('Ketik map untuk melihat map.'), nl,
-    write('Ketik ingfo(<nama player>) untuk melihat detail pemain.').
+    write('Ketik ingfo(<nama player>) untuk melihat detail pemain.'),
+    /* Inisialisasi random */
+    random(0,120,_).
 
 ingfo(X) :-
     player(Player,X,_,_,_,_,_,_,_),

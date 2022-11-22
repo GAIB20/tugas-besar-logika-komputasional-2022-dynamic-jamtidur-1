@@ -8,17 +8,17 @@
 all_cards([card_dummy, card_tax_jmp, card_tax_smol, card_tax_med, card_tax_beeg, card_gift_smol, card_gift_med, card_gift_beeg]).
 chance_card(card_dummy,     0,      'Baka! Eh bukan dummy yang itu deng.').
 chance_card(card_tax_jmp,   100,    'MENGHINDARI PAJAK ADALAH KEJAHATAN INTERNASIONAL! Maju ke petak PAJAK selanjutnya.').
-chance_card(card_tax_smol,  300,    'Dompet Anda bocor! Anda kehilangan Rp10.000.').
-chance_card(card_tax_med,   150,    'Kena typu! Anda kecurian Rp50.000.').
-chance_card(card_tax_beeg,  50,     'Rumah sakit moment! Bayar Rp400.000.').
-chance_card(card_gift_smol, 200,    'Uang tercecer di jalan! Anda menemukan Rp5.000.').
-chance_card(card_gift_med,  100,    'Bonus! Anda menerima Rp40.000.').
-chance_card(card_gift_beeg, 20,     'Warisan! Anda mendapatkan Rp150.000.').
+chance_card(card_tax_smol,  300,    'Dompet Anda bocor! Anda kehilangan $100.').
+chance_card(card_tax_med,   150,    'Kena typu! Anda kecurian $500.').
+chance_card(card_tax_beeg,  50,     'Rumah sakit moment! Bayar $4000.').
+chance_card(card_gift_smol, 200,    'Uang tercecer di jalan! Anda menemukan $50.').
+chance_card(card_gift_med,  100,    'Bonus! Anda menerima $400.').
+chance_card(card_gift_beeg, 20,     'Warisan! Anda mendapatkan $1500.').
 
 /* ======================================================== */
 /* *** RULE *** */
 /* EXTERNAL: Memilih satu card acak dan melakukan aksi yang bersesuaian */
-ambilChanceCard:-
+pickChanceCard:-
     pick_chance_card(Card),
     act_chance_card(Card).
 
@@ -28,12 +28,12 @@ act_chance_card(Card):-
     /* Format:
     Card == card_name,      rule, ..., !; */
     Card == card_dummy,     write('dummycard'), nl, !;
-    Card == card_tax_smol,  tax_act(10000), !;
-    Card == card_tax_med,   tax_act(50000), !;
-    Card == card_tax_beeg,  tax_act(400000), !;
-    Card == card_gift_smol, gift_act(5000), !;
-    Card == card_gift_med,  gift_act(40000), !;
-    Card == card_gift_beeg, gift_act(150000), !;
+    Card == card_tax_smol,  print_chance_card(Card), tax_act(100), !;
+    Card == card_tax_med,   print_chance_card(Card), tax_act(500), !;
+    Card == card_tax_beeg,  print_chance_card(Card), tax_act(4000), !;
+    Card == card_gift_smol, print_chance_card(Card), gift_act(50), !;
+    Card == card_gift_med,  print_chance_card(Card), gift_act(400), !;
+    Card == card_gift_beeg, print_chance_card(Card), gift_act(1500), !;
     /* Default */
     print_chance_card(Card), !.
 
