@@ -68,7 +68,8 @@ printHorizontal(Array,  ,Sentinel1, Sentinel2) rekursif
 printMonopoly, menampilkan space antara inner border dengan kata monopoly ditengahnya
 printVerticalLoc(Array)
 printVerticalOwn(Array) rekursif
-printOwnership()
+printOwnership(X)
+print()
 */
 map:- 
 write('        '), printVerticalOwn([fp, e1, e2, e3, cc, f1, f2, f3, wt]),
@@ -79,7 +80,10 @@ printHorizontal([d3,g1,d2,g2,d1,g3,tx,tx,c3,cc,c2,h1,c1,h2],13,0),
 printBorderIn,
 write('        '), printVerticalLoc([jl,b3,b2,b1,cc,a3,a2,a1,go]),
 printBorderOut,
-write('        '), printVerticalOwn([jl,b3,b2,b1,cc,a3,a2,a1,go]),!.
+write('        '), printVerticalOwn([jl,b3,b2,b1,cc,a3,a2,a1,go]),
+nl,nl,nl,
+printCurloc,
+!.
 
 
 
@@ -130,15 +134,14 @@ Sen is Sen1 mod 2,
 Sen =:= 1, 
 Array = [X|Tail],
 write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen1-1,printHorizontal(Tail, SenN, 0).
-
-
-
-
-
 /*currentLoc(Player, Loc), true jika posisis player sekarang adalah di loc*/ 
+currentLoc(Player, Loc):-player(Player, _,Loc,_,_,_,_,_,_).
 
-
-/**/
+printCurloc:-currentLoc(w, X),
+write('     Current Location')
+write('     W: '), write(X),
+currentLoc(v, Y),
+write('     V: '), write(Y).
 
 
 
@@ -149,7 +152,35 @@ write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen
 
 /**FAKTA**/
 /*isLoc(X), true jika X adalah lokasi valid*/
-
+isLoc(a1).
+isLoc(a2).
+isLoc(a3).
+isLoc(b1).
+isLoc(b2).
+isLoc(b3).
+isLoc(c1).
+isLoc(c2).
+isLoc(c3).
+isLoc(d1).
+isLoc(d2).
+isLoc(d3).
+isLoc(e1).
+isLoc(e2).
+isLoc(e3).
+isLoc(f1).
+isLoc(f2).
+isLoc(f3).
+isLoc(g1).
+isLoc(g2).
+isLoc(g3).
+isLoc(h1).
+isLoc(h2).
+isLoc(cc).
+isLoc(jl).
+isLoc(fp).
+isLoc(tx).
+isLoc(go).
+isLoc(wt).
 
 /*infoLoc(ID, type, Nama, Deskripcsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color):-
 curRent(Nama, CurRent), Cost Spend di track,*/
@@ -212,10 +243,7 @@ infoLoc(h2,0, 'Institut Teknologi Bandung','Deskripsi',none,0,0,0,violet).
 
 
 
-/*own(X,Y), true jika X memiliki Y*/
-own(X,Y):-infoLoc(Y,_,_,X,_,_,_,_,_).
-/*color(X,Y), true X memiliki color Y*/
-color(X,Y):-infoLoc(X,_,_,_,_,_,_,_,Y).
+
 
 /*set(X,Y), true jika Array Y merupakan himpunan dari colour X*/
 
@@ -224,17 +252,16 @@ color(X,Y):-infoLoc(X,_,_,_,_,_,_,_,Y).
 /*calculateRent(X,Y), true jika Y adalah harga sewa saat ini untuk X
 curRent dikalkulasi menggunakan konditional (harus cek colorset)
 asumsi sudah punya*/
-calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z),colorset(X,Z), Y is Rent
+calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z),colorset(X,Z), Y is (Rent*1.5).
 /*colorSet(X,Y), true jika player X memiliki colorSet Y*/
-colorSet(X,brown):-own(X,a1), own(x,a2),own(X,a3),!.
-colorSet(X,red):- own(X,b1), own(x,b2),own(X,b3),!.
-colorSet(X,orange):- own(X,c1), own(x,c2),own(X,c3),!.
-colorSet(X,yellow):- own(X,d1), own(x,d2),own(X,d3),!.
-colorSet(X,green):- own(X,e1), own(x,e2),own(X,e3),!.
-colorSet(X,blue):- own(X,f1), own(x,f2),own(X,f3),!.
-colorSet(X,indigo):- own(X,g1), own(x,g2),own(X,g3),!.
-colorSet(X,purple):- own(X,h1), own(x,h2),!.
-infoLoc(ID, type, Nama, Deskripcsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)
+colorSet(X,brown):-own(X,a1), own(X,a2),own(X,a3),!.
+colorSet(X,red):- own(X,b1), own(X,b2),own(X,b3),!.
+colorSet(X,orange):- own(X,c1), own(X,c2),own(X,c3),!.
+colorSet(X,yellow):- own(X,d1), own(X,d2),own(X,d3),!.
+colorSet(X,green):- own(X,e1), own(X,e2),own(X,e3),!.
+colorSet(X,blue):- own(X,f1), own(X,f2),own(X,f3),!.
+colorSet(X,indigo):- own(X,g1), own(X,g2),own(X,g3),!.
+colorSet(X,purple):- own(X,h1), own(X,h2),!.
 
 /*checkLocationDetail(X)*/
 checkLocationDetail(X):-
@@ -267,6 +294,9 @@ write(PropertyLevel),!.
 
 
 /*Basis*/
-colorSet(Player, [X]):- own(Player, X).
 
 
+/*own(X,Y), true jika X memiliki Y*/
+own(X,Y):-infoLoc(Y,_,_,X,_,_,_,_,_).
+/*color(X,Y), true X memiliki color Y*/
+color(X,Y):-infoLoc(X,_,_,_,_,_,_,_,Y).
