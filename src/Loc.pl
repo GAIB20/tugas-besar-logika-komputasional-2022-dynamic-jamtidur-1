@@ -151,7 +151,7 @@ write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen
 /*isLoc(X), true jika X adalah lokasi valid*/
 
 
-/*infoLoc(ID, type, Nama, Deskripcsi, Pemilik, CurRent, CostSpend, PropertyLevel,):-
+/*infoLoc(ID, type, Nama, Deskripcsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color):-
 curRent(Nama, CurRent), Cost Spend di track,*/
 /*type 0: Kota
 type 1: Chance Card
@@ -222,8 +222,9 @@ color(X,Y):-infoLoc(X,_,_,_,_,_,_,_,Y).
 
 /*Rule*/
 /*calculateRent(X,Y), true jika Y adalah harga sewa saat ini untuk X
-curRent dikalkulasi menggunakan konditional (harus cek colorset)*/
-calculateRent(X,Y):-
+curRent dikalkulasi menggunakan konditional (harus cek colorset)
+asumsi sudah punya*/
+calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z),colorset(X,Z), Y is Rent
 /*colorSet(X,Y), true jika player X memiliki colorSet Y*/
 colorSet(X,brown):-own(X,a1), own(x,a2),own(X,a3),!.
 colorSet(X,red):- own(X,b1), own(x,b2),own(X,b3),!.
@@ -233,6 +234,7 @@ colorSet(X,green):- own(X,e1), own(x,e2),own(X,e3),!.
 colorSet(X,blue):- own(X,f1), own(x,f2),own(X,f3),!.
 colorSet(X,indigo):- own(X,g1), own(x,g2),own(X,g3),!.
 colorSet(X,purple):- own(X,h1), own(x,h2),!.
+infoLoc(ID, type, Nama, Deskripcsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)
 
 /*checkLocationDetail(X)*/
 checkLocationDetail(X):-
