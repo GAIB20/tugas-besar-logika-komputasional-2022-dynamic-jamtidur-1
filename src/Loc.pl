@@ -1,3 +1,5 @@
+:- include('player.pl').
+
 /*Papan*/
 /*Fakta*/
 /*coor(X,Y), true jika X adalah koordinat dari Y*/
@@ -33,6 +35,9 @@ coor(28, tx).
 coor(29, cc).
 coor(30, h1).
 coor(31, h2).
+
+
+
 
 /**/
 /*Aturan*/
@@ -134,20 +139,48 @@ Sen is Sen1 mod 2,
 Sen =:= 1, 
 Array = [X|Tail],
 write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen1-1,printHorizontal(Tail, SenN, 0).
-/*currentLoc(Player, Loc), true jika posisis player sekarang adalah di loc*/ 
+/*currentLoc(Player, Loc), true jika posisis player sekarang adalah di loc
+Untuk sekarang di bawah ini bikin error
+*/ 
 currentLoc(Player, Loc):-player(Player, _,Loc,_,_,_,_,_,_).
 
-printCurloc:-currentLoc(w, X),
-write('     Current Location'),
-write('     W: '), write(X),
-currentLoc(v, Y),
-write('     V: '), write(Y).
+printCurloc:-currentLoc(w, X), coor(X,Xout),
+write('     Current Location'),nl,
+write('     W: '), write(Xout),nl,
+currentLoc(v, Y), coor(Y,Yout),
+write('     V: '), write(Yout),nl,!.
 
 
 
 
+/*getDistance(X,Y,Z),
+bernilai true jika jarak X dan Y secara 
+arah jarum jam bernilai Z.
+ */
 
+getDistance(Xin, Y, Zin):- Xin =:= Y, Zin is 1, !.
+getDistance(Xin, Y, Zin):- Xin =\= Y, X is (Xin + 1) mod 36, getDistance(X,Y,Z), Zin is Z+1.
 
+findDistance(Start, End, Value):-Start == End, Value is 0.
+findDistance(Start, End, Value):-Start \== End, coor(X, Start), X1 is X+1, coor(X1, Next), findDistance(Next, End, Val) , Value is Val+1.
+
+distance(Start,End):-findDistance(Start,End, Value), write(Start),write(' dan '), write(End), write(' berjarak: '), write(Value),nl,!.
+/*move(X,Y)*/
+/*go effect is not implemented yet*/
+move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
+
+X1 is CurLoc + Y,
+ChangeLoc is X1 mod 36,
+ChangeLoc < CurLoc, Moneynow is Money + 200,
+retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
+assertz(player(X,A,ChangeLoc,Moneynow,C,D,E,F,G)).
+
+move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
+X1 is CurLoc + Y,
+ChangeLoc is X1 mod 36,
+ChangeLoc >= CurLoc, 
+retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
+assertz(player(X,A,ChangeLoc,Money,C,D,E,F,G)).
 /*Lokasi*/
 
 /**FAKTA**/
@@ -253,6 +286,7 @@ infoLoc(h2,0, 'Institut Teknologi Bandung','Deskripsi',none,0,0,0,violet).
 curRent dikalkulasi menggunakan konditional (harus cek colorset)
 asumsi sudah punya*/
 calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z),colorset(X,Z), Y is (Rent*1.5).
+calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z), \+colorset(X,Z), Y is Rent.
 /*colorSet(X,Y), true jika player X memiliki colorSet Y*/
 colorSet(X,brown):-own(X,a1), own(X,a2),own(X,a3),!.
 colorSet(X,red):- own(X,b1), own(X,b2),own(X,b3),!.
