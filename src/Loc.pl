@@ -39,6 +39,9 @@ coor(31, h2).
 
 
 
+
+
+
 /**/
 /*Aturan*/
 /*mod(X,Y,Z), true jika X mod Y adalah Z(warning, this prevent world cup and rotational income)*/
@@ -140,6 +143,8 @@ Sen =:= 1,
 Array = [X|Tail],
 write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen1-1,printHorizontal(Tail, SenN, 0).
 /*currentLoc(Player, Loc), true jika posisis player sekarang adalah di loc
+Untuk sekarang di bawah ini bikin error
+
 Untuk sekarang di bawah ini bikin error
 */ 
 currentLoc(Player, Loc):-player(Player, _,Loc,_,_,_,_,_,_).
