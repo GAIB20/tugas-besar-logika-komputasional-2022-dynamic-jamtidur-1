@@ -17,11 +17,15 @@ start :-
     write('Sekarang adalah giliran pemain '),
     nowPlayer(X), player(X,Nama,_,_,_,_,_,_,_),
     write(Nama), write('.'), nl,
-    write('Ketik map untuk melihat map.').
+    write('Ketik map untuk melihat map.'), nl,
+    write('Ketik ingfo(<nama player>) untuk melihat detail pemain.')
+
+ingfo(X) :-
+    player(Player,X,_,_,_,_,_,_,_),
+    checkPlayerDetail(Player).
 
 /* map sudah diimplementasikan di file ... */
 /* throwDice, dice1, dice2 sudah diimplementasikan di file ... */
-
 
 /* bankrupt */
 bankrupt(v) :-
@@ -31,5 +35,8 @@ bankrupt(v) :-
 bankrupt(w) :-
     retractall(player(w,_,_,_,_,_,_,_,_)),
     assertz(player(w,'W',go,20000,0,0,[],[],[])).
+
+/* sellBuilding untuk membeli bangunan yang dimiliki */
+sellBuilding(X) :- harga(_,X,_,H1,H2,H3,H4,_), Harga is 0.8*(H1+H2+H3+H4), nowPlayer(Player), addMoney(Player,Harga).
 
 /* bentar ya belum selesai hehehe */
