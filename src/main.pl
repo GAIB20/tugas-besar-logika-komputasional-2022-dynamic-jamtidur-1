@@ -1,4 +1,7 @@
 /* *** Include file *** */
+/* [INCLUDE GEN] */
+:- include('gen/inclgen.pl').
+
 /* Include util */
 :- include('util_list.pl').
 
