@@ -5,15 +5,15 @@
 /* ======================================================== */
 /* *** FAKTA *** */
 /* chance_card(name, weight, text) */
-all_cards([card_dummy, card_tax_jmp, card_tax_smol, card_tax_med, card_tax_beeg, card_gift_smol, card_gift_med, card_gift_beeg]).
 chance_card(card_dummy,     0,      'Baka! Eh bukan dummy yang itu deng.').
-chance_card(card_tax_jmp,   100,    'MENGHINDARI PAJAK ADALAH KEJAHATAN INTERNASIONAL! Maju ke petak PAJAK selanjutnya.').
-chance_card(card_tax_smol,  300,    'Dompet Anda bocor! Anda kehilangan $100.').
-chance_card(card_tax_med,   150,    'Kena typu! Anda kecurian $500.').
-chance_card(card_tax_beeg,  50,     'Rumah sakit moment! Bayar $4000.').
+chance_card(card_tax_jmp,   100,    'MENGHINDARI PAJAK ADALAH KEJAHATAN, VERGIL! Maju ke petak PAJAK selanjutnya.').
+chance_card(card_tax_smol,  250,    'Dompet Anda bocor! Anda kehilangan $100.').
+chance_card(card_tax_med,   120,    'Kena typu! Anda kecurian $500.').
+chance_card(card_tax_beeg,  25,     'Rumah sakit moment! Bayar $4000.').
 chance_card(card_gift_smol, 200,    'Uang tercecer di jalan! Anda menemukan $50.').
 chance_card(card_gift_med,  100,    'Bonus! Anda menerima $400.').
 chance_card(card_gift_beeg, 20,     'Warisan! Anda mendapatkan $1500.').
+chance_card(card_angel,     20,     'Anda mendapatkan Angel Card! Hindari masuk penjara satu kali.').
 
 /* ======================================================== */
 /* *** RULE *** */
@@ -34,6 +34,7 @@ act_chance_card(Card):-
     Card == card_gift_smol, print_chance_card(Card), gift_act(50), !;
     Card == card_gift_med,  print_chance_card(Card), gift_act(400), !;
     Card == card_gift_beeg, print_chance_card(Card), gift_act(1500), !;
+    Card == card_angel,     print_chance_card(Card), angel_act, !;
     /* Default */
     print_chance_card(Card), !.
 
@@ -51,6 +52,10 @@ print_chance_card(Card):-
 
 /* ======================================================== */
 /* *** UTIL *** */
+/* INTERNAL: Rule untuk mengumpulkan semua card dalam satu list */
+all_cards(L):-
+    findall(Card, chance_card(Card, _, _), L).
+
 /* INTERNAL: Rule untuk memilih card berdasarkan weight */
 pick(_, Card, [Card | []]):- !.
 pick(R, Card, [Card | _]):-

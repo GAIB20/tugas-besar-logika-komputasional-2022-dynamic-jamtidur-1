@@ -1,6 +1,8 @@
 :- dynamic(player/9).
 
 /*Deklarasi Fakta*/
+/* Format:
+player(Player, Username, Location, Money, PropertiesValue, Asset, Properties, Buildings, Cards) */
 player(v,'V',0,20000,0,0,[],[],[]).
 player(w,'W',0,20000,0,0,[],[],[]).
 
@@ -16,13 +18,6 @@ printListProperties([X|Y],[A|B],P) :-
     P1 is P +1,
     write(X),write(' - '), printBuilding(A),nl,
     printListProperties(Y,B,P1).
-
-printList([],_).
-printList([A|B],P) :-
-    write(P),write('.'),
-    P1 is P +1,
-    write(A),nl,
-    printList(B,P1).
 
 buyProperties(X,Property) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
@@ -45,20 +40,6 @@ buyProperties(X,Property) :-
     checkPropertyValue(Property,Value),
     Money < Value, !,
     write('Uang tidak cukup').
-
-getIndex(A,[A|_],1) :- !.
-getIndex(A,[_|T],Idx1) :-
-    getIndex(A,T,Idx), Idx1 is Idx + 1.
-
-getValue([H|_],1,H) :- !.
-getValue([_|T],Idx,Value) :-
-    Idx1 is Idx-1,
-    getValue(T,Idx1,Value).
-
-setValue(A,[_|T],1,[A|T]):-!.
-setValue(A,[H|T],Idx,[H|L1]):-
-    Idx1 is Idx - 1,
-    setValue(A,T,Idx1,L1).
 
 getHarga(A,Value,Harga) :- Value == 0, !, harga(A,_,_, _,X,_,_,_), Harga is X.
 getHarga(A,Value,Harga) :- Value == 1, !, harga(A,_,_, _,_,X,_,_), Harga is X.

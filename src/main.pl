@@ -1,4 +1,8 @@
-/* Include file */
+/* *** Include file *** */
+/* Include util */
+:- include('util_list.pl').
+
+/* Include source */
 :- include('chance_card.pl').
 :- include('dadu.pl').
 :- include('jail.pl').
@@ -25,7 +29,7 @@ start :-
 
 ingfo(X) :-
     player(Player,X,_,_,_,_,_,_,_),
-    checkPlayerDetail(Player).
+    checkPlayerDetail(Player), !.
 
 /* map sudah diimplementasikan di file ... */
 /* throwDice, dice1, dice2 sudah diimplementasikan di file ... */
