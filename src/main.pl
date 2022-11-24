@@ -1,6 +1,6 @@
 /* *** Include file *** */
-/* [INCLUDE GEN] */
-:- include('gen/inclgen.pl').
+/* [<SYSTEM> INCLUDE INTERNAL] */
+:- include('internal/incl.pl').
 
 /* Include util */
 :- include('util_list.pl').
