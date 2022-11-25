@@ -7,7 +7,7 @@ goToJail(X):-
 
 goToJail(X):-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
-    hasCard(Card,card_angel),!,write('Pemain tidak masuk penjara karena memiliki angel card'),
+    hasCard(X,card_angel),!,write('Pemain tidak masuk penjara karena memiliki angel card'),
     removeElement(Card,card_angel,NewCard),
     retractall(player(X,_,_,_,_,_,_,_,_)),
     assertz(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,NewCard)), !.
@@ -35,10 +35,3 @@ free(X,Langkah) :-
     retractall(player(X,_,_,_,_,_,_,_,_)),
     Location2 is Location + Langkah,
     assertz(player(X,Username,Location2,Money,PropertiesValue,Asset,Properties,Buildings,Card)).
-
-/*memeriksa apakah pemain mempunyai suatu kartu*/
-hasCard(List,Card) :- contains(Card,List).
-/*hasCard([A|_],A) :- !.
-hasCard([H|T],A) :-
-    H \= A, hasCard(T,A).*/
-
