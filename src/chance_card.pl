@@ -14,6 +14,7 @@ chance_card(card_gift_smol, 200,    'Uang tercecer di jalan! Anda menemukan $50.
 chance_card(card_gift_med,  100,    'Bonus! Anda menerima $400.').
 chance_card(card_gift_beeg, 20,     'Warisan! Anda mendapatkan $1500.').
 chance_card(card_angel,     20,     'Anda mendapatkan Angel Card! Hindari masuk penjara satu kali.').
+chance_card(card_bonk,      80,     'KENA BONK! Anda masuk penjara.').
 
 /* ======================================================== */
 /* *** RULE *** */
@@ -35,6 +36,7 @@ act_chance_card(Card):-
     Card == card_gift_med,  print_chance_card(Card), gift_act(400), !;
     Card == card_gift_beeg, print_chance_card(Card), gift_act(1500), !;
     Card == card_angel,     print_chance_card(Card), angel_act, !;
+    Card == card_bonk,      print_chance_card(Card), bonk_act, !;
     /* Default */
     print_chance_card(Card), !.
 
@@ -84,6 +86,14 @@ chance_card_wsum(S):-
     all_cards(A),
     chance_card_wsum(S, A),
     assertz(ccwsum(S)).
+
+/*memeriksa apakah pemain mempunyai suatu kartu*/
+hasCard(Player,Card) :-
+    player(Player,_,_,_,_,_,_,_,Card),
+    contains(Card,List).
+/*hasCard([A|_],A) :- !.
+hasCard([H|T],A) :-
+    H \= A, hasCard(T,A).*/
 
 /* DEBUG: Menampilkan N chance card yang dipilih berurutan secara acak */
 pick_n_chance_cards(0):- !.

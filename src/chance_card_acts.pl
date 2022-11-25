@@ -16,6 +16,11 @@ angel_act:-
     nowPlayer(Player),
     give_card_to(card_angel, Player).
 
+/* INTERNAL: Memasukkan pemain aktif ke penjara */
+bonk_act:-
+    nowPlayer(Player),
+    goToJail(Player).
+
 /* INTERNAL: Memberikan card ke pemain */
 give_card_to(Card, Player):-
     chance_card(Card, _, _),
