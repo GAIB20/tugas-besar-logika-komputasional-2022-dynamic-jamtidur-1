@@ -9,6 +9,7 @@
 :- include('player.pl').
 :- include('property.pl').
 :- include('Loc.pl').
+:- include('world_tour.pl').
 
 /* Status permainan */
 :- dynamic(isExit/1).

@@ -1,5 +1,3 @@
-:- include('player.pl').
-
 /*Papan*/
 /*Fakta*/
 /*coor(X,Y), true jika X adalah koordinat dari Y*/
