@@ -1,51 +1,51 @@
 /* FAKTA */
-harga(a1,'Universitas Negeri Padang','[]',100,50,50,50,'landmark').
-harga(a2,'Universitas Sriwijaya','[]',100,50,50,50,'landmark').
-harga(a3,'Universitas Andalas','[]',120,50,50,50,'landmark').
-harga(b1,'Universitas Negeri Semarang','[]',140,50,50,50,'landmark').
-harga(b2,'Universitas Negeri Malang','[]',140,50,50,50,'landmark').
-harga(b3,'Universitas Sumatera Utara','[]',160,50,50,50,'landmark').
-harga(c1,'Universitas Lampung','[]',180,100,100,100,'landmark').
-harga(c2,'Universitas Gunadarma','[]',180,100,100,100,'landmark').
-harga(c3,'Universitas Negeri Yogyakarta','[]',200,100,100,100,'landmark').
-harga(d1,'Universitas Muhammadiyah Yogyakarta','[]',220,100,100,100,'landmark').
-harga(d2,'Universitas Padjajaran','[]',220,100,100,100,'landmark').
-harga(d3,'Universitas Hasanuddin','[]',240,100,100,100,'landmark').
-harga(e1,'Universitas Pendidikan Indonesia','[]',260,150,150,150,'landmark').
-harga(e2,'Telkom University','[]',260,150,150,150,'landmark').
-harga(e3,'Universitas Brawijaya','[]',280,150,150,150,'landmark').
-harga(f1,'Universitas Diponegoro','[]',300,150,150,150,'landmark').
-harga(f2,'Universitas Sebelas Maret','[]',300,150,150,150,'landmark').
-harga(f3,'Universitas Airlangga','[]',320,150,150,150,'landmark').
-harga(g1,'Universitas Indonesia','[]',340,200,200,200,'landmark').
-harga(g2,'Institut Teknologi Sepuluh November','[]',340,200,200,200,'landmark').
-harga(g3,'Institut Pertanian Bogor','[]',360,200,200,200,'landmark').
-harga(h1,'Universitas Gadjah Mada','[]',400,200,200,200,'landmark').
-harga(h2,'Institut Teknologi Bandung','[]',450,200,200,200,'landmark').
+harga(a1,'Universitas Negeri Padang','\n    Tahun berdiri        : 1954 \n    Lokasi               : Padang, Sumatra Barat',100,50,50,50,75).
+harga(a2,'Universitas Sriwijaya','\n    Tahun berdiri        : 1960 \n    Lokasi               : Palembang, Sumatra Selatan',100,50,50,50,75).
+harga(a3,'Universitas Andalas','\n    Tahun berdiri        : 1955 \n    Lokasi               : Padang, Sumatra Barat',120,50,50,50,75).
+harga(b1,'Universitas Negeri Semarang','\n    Tahun berdiri        : 1965 \n    Lokasi               : Semarang, Jawa Tengah',140,50,50,50,75).
+harga(b2,'Universitas Negeri Malang','\n    Tahun berdiri        : 1954 \n    Lokasi               : Malang dan Blitar, Jawa Timur',140,50,50,50,75).
+harga(b3,'Universitas Sumatera Utara','\n    Tahun berdiri        : 1957 \n    Lokasi               : Medan, Sumatra Utara',160,50,50,50,75).
+harga(c1,'Universitas Lampung','\n    Tahun berdiri        : 1965 \n    Lokasi               : Bandar Lampung, Lampung',180,100,100,100,150).
+harga(c2,'Universitas Gunadarma','\n    Tahun berdiri        : 1981 \n    Lokasi               : Depok, Jawa Barat',180,100,100,100,150).
+harga(c3,'Universitas Negeri Yogyakarta','\n    Tahun berdiri        : 1964 \n    Lokasi               : Sleman, Yogyakarta',200,100,100,100,150).
+harga(d1,'Universitas Muhammadiyah Yogyakarta','\n    Tahun berdiri        : 1981 \n    Lokasi               : Bantul, Sumatra Utara',220,100,100,100,150).
+harga(d2,'Universitas Padjajaran','\n    Tahun berdiri        : 1957 \n    Lokasi               : Jatinangor, Jawa Barat',220,100,100,100,150).
+harga(d3,'Universitas Hasanuddin','\n    Tahun berdiri        : 1956 \n    Lokasi               : Makassar, Sulawesi Selatan',240,100,100,100,150).
+harga(e1,'Universitas Pendidikan Indonesia','\n    Tahun berdiri        : 1954 \n    Lokasi               : Bandung, Jawa Barat',260,150,150,150,225).
+harga(e2,'Telkom University','\n    Tahun berdiri        : 2013 \n    Lokasi               : Bandung, Jawa Barat',260,150,150,150,225).
+harga(e3,'Universitas Brawijaya','\n    Tahun berdiri        : 1963 \n    Lokasi               : Malang, Jawa Timur',280,150,150,150,225).
+harga(f1,'Universitas Diponegoro','\n    Tahun berdiri        : 1957 (berubah nama menjadi Universitas Diponegoro pada tahun 1960) \n    Lokasi               : Semarang, Jawa Tengah',300,150,150,150,225).
+harga(f2,'Universitas Sebelas Maret','\n    Tahun berdiri        : 1976 \n    Lokasi               : Surakarta, Jawa Tengah',300,150,150,150,225).
+harga(f3,'Universitas Airlangga','\n    Tahun berdiri        : 1954 \n    Lokasi               : Surabaya, Jawa Timur',320,150,150,150,225).
+harga(g1,'Universitas Indonesia','\n    Tahun berdiri        : 1924 (berubah nama menjadi Universitas Indonesia pada tahun 1950) \n    Lokasi               : Depok, Jawa Barat \n                           Jakarta Pusat, DKI Jakarta',340,200,200,200,300).
+harga(g2,'Institut Teknologi Sepuluh November','\n    Tahun berdiri        : 1957 \n    Lokasi               : Surabaya, Jawa Timur',340,200,200,200,300).
+harga(g3,'Institut Pertanian Bogor','\n    Tahun berdiri        : 1963 \n    Lokasi               : Bogor, Jawa Barat',360,200,200,200,300).
+harga(h1,'Universitas Gadjah Mada','\n    Tahun berdiri        : 1949 \n    Lokasi               : Sleman, Yogyakarta',400,200,200,200,300).
+harga(h2,'Institut Teknologi Bandung','\n    Tahun berdiri        : 1920 (berubah nama menjadi Institut Teknologi Bandung pada tahun 1959) \n    Lokasi               : Bandung, Jawa Barat',450,200,200,200,300).
 
-sewa(a1,5,20,60,100,'landmark').
-sewa(a2,5,20,60,100,'landmark').
-sewa(a3,8,30,90,200,'landmark').
-sewa(b1,11,40,120,250,'landmark').
-sewa(b2,11,40,120,250,'landmark').
-sewa(b3,14,50,150,300,'landmark').
-sewa(c1,17,60,180,350,'landmark').
-sewa(c2,17,60,180,350,'landmark').
-sewa(c3,20,70,210,400,'landmark').
-sewa(d1,23,80,240,500,'landmark').
-sewa(d2,23,80,240,500,'landmark').
-sewa(d3,26,90,270,550,'landmark').
-sewa(e1,29,100,300,600,'landmark').
-sewa(e2,29,100,300,600,'landmark').
-sewa(e3,32,140,420,850,'landmark').
-sewa(f1,35,150,450,900,'landmark').
-sewa(f2,35,150,450,900,'landmark').
-sewa(f3,38,160,480,950,'landmark').
-sewa(g1,41,170,510,1000,'landmark').
-sewa(g2,41,170,510,1000,'landmark').
-sewa(g3,44,180,540,1100,'landmark').
-sewa(h1,50,200,600,1200,'landmark').
-sewa(h2,55,250,750,1500,'landmark').
+sewa(a1,5,20,60,100,500).
+sewa(a2,5,20,60,100,500).
+sewa(a3,8,30,90,200,600).
+sewa(b1,11,40,120,250,750).
+sewa(b2,11,40,120,250,750).
+sewa(b3,14,50,150,300,800).
+sewa(c1,17,60,180,350,900).
+sewa(c2,17,60,180,350,900).
+sewa(c3,20,70,210,400,950).
+sewa(d1,23,80,240,500,1000).
+sewa(d2,23,80,240,500,1000).
+sewa(d3,26,90,270,550,1050).
+sewa(e1,29,100,300,600,1100).
+sewa(e2,29,100,300,600,1100).
+sewa(e3,32,140,420,850,1300).
+sewa(f1,35,150,450,900,1350).
+sewa(f2,35,150,450,900,1350).
+sewa(f3,38,160,480,950,1400).
+sewa(g1,41,170,510,1000,1500).
+sewa(g2,41,170,510,1000,1500).
+sewa(g3,44,180,540,1100,1600).
+sewa(h1,50,200,600,1200,1800).
+sewa(h2,55,250,750,1500,2100).
 
 
 /* RULES */
@@ -54,7 +54,7 @@ checkPropertyDetail(X) :-
     sewa(X,BST,BSB1,BSB2,BSB3,BSL),
     write('Nama Properti            : '), 
     write(Loc), nl,
-    write('Deskripsi Properti       : '),
+    write('Deskripsi Properti       '),
     write(Desc), nl,
     write(''), nl,
     write('Harga Tanah              : '),

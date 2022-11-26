@@ -1,17 +1,21 @@
-:- dynamic(player/9).
-
 /*Deklarasi Fakta*/
+:- dynamic(player/9).
 /* Format:
 player(Player, Username, Location, Money, PropertiesValue, Asset, Properties, Buildings, Cards) */
 player(v,'V',0,20000,0,0,[],[],[]).
 player(w,'W',0,20000,0,0,[],[],[]).
 
+/*================================================================================================*/
+/*Mekanisme Menampilkan Informasi Player*/
+
+/*Menampilkan informasi bangunan*/
 printBuilding(A) :- A == 0,!, write('Tanah').
 printBuilding(A) :- A == 1,!, write('Bangunan 1').
 printBuilding(A) :- A == 2,!, write('Bangunan 2').
 printBuilding(A) :- A == 3,!, write('Bangunan 3').
 printBuilding(A) :- A == 4,!, write('Landmark').
 
+/*Menampilkan informasi properti*/
 printListProperties([],[],_) :- !.
 printListProperties([X|Y],[A|B],P) :-
     write(P),write('.'),
@@ -19,6 +23,57 @@ printListProperties([X|Y],[A|B],P) :-
     write(X),write(' - '), printBuilding(A),nl,
     printListProperties(Y,B,P1).
 
+/*Menampilkan informasi lokasi*/
+printLocation(X) :- 
+    coor(X,Y), write(Y).
+
+/*================================================================================================*/
+/*Mekanisme perubahan keterangan player*/
+/*Mekanisme penambahan uang*/
+addMoney(X,A) :-
+    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
+    MoneyUpdated is Money+A,
+    retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
+    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,Asset,Properties,Buildings,Card)). 
+
+/*Mekanisme pengurangan uang*/
+subtractMoney(X,A) :-
+    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
+    MoneyUpdated is Money-A,
+    retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
+    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,Asset,Properties,Buildings,Card)). 
+
+/*Mengganti username*/
+changeUsername(Y):-
+    nowPlayer(X),
+    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
+    retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
+    assertz(player(X,Y,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
+    write('Username '), write(X), write(' berhasil diganti menjadi '), write(Y).
+
+/*================================================================================================*/
+/*Mekanisme pembelian*/
+
+/*Pembelian Properti*/
+/*Memeriksa harga properti*/
+checkPropertyValue(Property,Value) :-
+    harga(Property,_,_,X,_,_,_,_), Value is X.
+
+/*Mengecek apakah properti terdapat di dalam list properti*/
+check(_,[]).
+check(Property,[H|T]) :-
+    H \= Property,
+    check(Property,T).
+
+/*Mengecek apakah properti sudah dimiliki orang lain*/
+isNotIn(Property,Properties)  :- 
+    player(X,_,_,_,_,_,Properties,_,_),
+    player(Y,_,_,_,_,_,Properties2,_,_),
+    X \= Y,
+    check(Property,Properties),
+    check(Property,Properties2).
+
+/*Pembelian properti berhasil*/
 buyProperties(X,Property) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     isNotIn(Property,Properties),
@@ -30,22 +85,27 @@ buyProperties(X,Property) :-
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[0|Buildings],Card)).
 
+/*Pembelian properti gagal karena sudah dimiliki*/
 buyProperties(X,Property) :- 
     player(X,_,_,_,_,_,Properties,_,_),
     \+isNotIn(Property,Properties), !, 
     write('Properti sudah dimiliki').
 
+/*Pembelian properti gagal karena uang tidak cukup*/
 buyProperties(X,Property) :-
     player(X,_,_,Money,_,_,_,_,_),
     checkPropertyValue(Property,Value),
     Money < Value, !,
     write('Uang tidak cukup').
 
+/*Menentukan harga bangunan*/
 getHarga(A,Value,Harga) :- Value == 0, !, harga(A,_,_, _,X,_,_,_), Harga is X.
 getHarga(A,Value,Harga) :- Value == 1, !, harga(A,_,_, _,_,X,_,_), Harga is X.
 getHarga(A,Value,Harga) :- Value == 2, !, harga(A,_,_, _,_,_,X,_), Harga is X.
 getHarga(A,Value,Harga) :- Value == 3, !, harga(A,_,_, _,_,_,_,X), Harga is X.
 
+/*Peningkatan bangunan*/
+/*Upgrade buiding gagal karena sudah sampai landmark*/
 upgradeBuilding(X,A) :-
     player(X,_,_,_,_,_,Properties,Buildings,_),
     getIndex(A,Properties,Idx),
@@ -53,6 +113,7 @@ upgradeBuilding(X,A) :-
     Value >= 4, !,
     write('Bangunan sudah terupgrade sampai Landmark!').
 
+/*Upgrade building berhasil*/
 upgradeBuilding(X,A) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     getIndex(A,Properties,Idx),
@@ -66,6 +127,10 @@ upgradeBuilding(X,A) :-
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)).
 
+/*================================================================================================*/
+/*PENJUALAN*/
+
+/*Penjualan bangunan gagal karena hanya memiliki tanah*/
 downgradeBuilding(X,A) :-
     player(X,_,_,_,_,_,Properties,Buildings,_),
     getIndex(A,Properties,Idx),
@@ -73,6 +138,8 @@ downgradeBuilding(X,A) :-
     getHarga(A,Value-1,_),
     Value >0,
     !, write('Tidak bisa dijual lagi').
+
+/*Penjualan bangunan berhasil*/
 downgradeBuilding(X,A) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     getIndex(A,Properties,Idx),
@@ -86,22 +153,12 @@ downgradeBuilding(X,A) :-
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)).
 
-check(_,[]).
-check(Property,[H|T]) :-
-    H \= Property,
-    check(Property,T).
-
-isNotIn(Property,Properties)  :- 
-    player(X,_,_,_,_,_,Properties,_,_),
-    player(Y,_,_,_,_,_,Properties2,_,_),
-    X \= Y,
-    check(Property,Properties),
-    check(Property,Properties2).
-
+/*================================================================================================*/
+/*Menampilkan informasi dari player*/
 checkPlayerDetail(X) :- 
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     write('Informasi Player '), write(Username), nl, nl,
-    write('Lokasi                        : '), write(Location),nl,
+    write('Lokasi                        : '), printLocation(Location),nl,
     write('Total Uang                    : '), write(Money),nl,
     write('Total Nilai Properti          : '), write(PropertiesValue),nl,
     write('Total Aset                    : '), write(Asset),nl,nl,
@@ -110,19 +167,8 @@ checkPlayerDetail(X) :-
     write('Daftar Kepemilikan Card       :'),nl,
     printList(Card,1).
 
-addMoney(X,A) :-
-    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
-    MoneyUpdated is Money+A,
-    retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,Asset,Properties,Buildings,Card)). 
-
-subtractMoney(X,A) :-
-    player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
-    MoneyUpdated is Money-A,
-    retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,Asset,Properties,Buildings,Card)). 
-
-checkPropertyValue(Property,Value) :-
-    harga(Property,_,_,X,_,_,_,_), Value is X.
-
-
+/*Menampilkan informasi lokasi tempat player X berada*/
+locationPlayer(X) :-
+    player(X,_,Location,_,_,_,_,_,_),
+    coor(X,Y),
+    checkPropertyDetail(Y).
