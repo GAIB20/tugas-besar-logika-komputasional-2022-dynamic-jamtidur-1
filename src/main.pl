@@ -11,6 +11,7 @@
 :- include('property.pl').
 :- include('Loc.pl').
 :- include('world_tour.pl').
+:- include('tax.pl').
 
 /* Status permainan */
 :- dynamic(isExit/1).
@@ -33,10 +34,6 @@ gantiPlayer :-
     Now == w,
     retractall(nowPlayer(w)),
     assertz(nowPlayer(v)).
-
-ingfo(X) :-
-    player(Player,X,_,_,_,_,_,_,_),
-    checkPlayerDetail(Player).
 
 /* map sudah diimplementasikan di file ... */
 /* throwDice, dice1, dice2 sudah diimplementasikan di file ... */
@@ -108,7 +105,7 @@ start :-
     write('Welcome to isekai!1!1'), nl,
     write('Ketik map untuk melihat map.'), nl,
     write('Ketik help untuk melihat command tambahan.'), nl,
-    write('Ketik ingfo(<nama player>) untuk melihat detail pemain.'), nl,
+    write('Ketik checkPlayerDetail(<nama player>) untuk melihat detail pemain.'), nl,
     printNowPlayer.
 
 help :-
@@ -122,7 +119,7 @@ throwDice :-
     mthrowDice,
     dice1(Dadu1), dice2(Dadu2), Dadu is Dadu1+Dadu2,
     nowPlayer(Player), move(Player, Dadu),
-    printNowPlayer.
+    currentLoc(Player, Loc), coor(Loc, LocOut), aksi(Player, LocOut).
     
 /* Mekanisme aksi di lokasi */
 /* (fp) Parkir gratis */
@@ -142,26 +139,65 @@ aksi(Player, Loc) :-
     Loc == wt, !,
     write('Kamu berkesempatan untuk melakukan world tour! Pilih destinasi: '),
     read(Inp),
-    worldTour(Player, Inp),
-    gantiPlayer, printNowPlayer.
+    (worldTour(Player, Inp),
+    gantiPlayer, printNowPlayer; 
+    \+ worldTour(Player, Inp), aksi(Player, Loc)).
 
 /* (cc) Chance Card */
 aksi(Player, Loc) :-
-    Loc == cc,
+    Loc == cc, !,
     pickChanceCard,
     gantiPlayer, printNowPlayer.
 
 /* (tx) Tax */
-
+aksi(Player, Loc) :-
+    Loc == tx, !,
+    write('Kena pajak!'),
+    tax(Player, Y),
+    subtractMoney(Player,Y).
 
 /* sisanya */
-aksi(Player, X, Inp) :-
-    write('Ingin membeli bangunan? [y/n] '), nl,
-    write('Command: '),
-    read(Inp),
-    buyBuilding(X,Inp),
+aksi(Player,X):-
+    isProperties(X),
+    nowPlayer(U),
+    \+isNotIn(X),!,
+    pemilik(X,T),
+    T \= U,
+    write('Properti ini sudah kamu miliki.'),
+    beliBangunan, gantiPlayer, printNowPlayer.
+
+/*Kondisi ketika properti sudah dimiliki orang lain*/
+aksi(Player,X):-
+    isProperties(X),
+    nowPlayer(U),
+    \+isNotIn(X),!,
+    pemilik(X,T),
+    T \= U,
+    lawan(U,A),
+    player(A,_,_,_,_,_,_,Prop,Buildings,_),
+    cekSewa(X,Prop,Buildings,Sewa),
+    write('Properti ini sudah dimiliki '), write(A), (' ! Anda harus membayar sewa sebesar '), write(Sewa),
+    subtractMoney(Sewa),
+    askSellBuilding(A,Inp),
     gantiPlayer, printNowPlayer.
 
-buyBuilding(X,y) :- 
-    nowPlayer(Player), 
-    buyProperties(Player,X).
+/*Kondisi ketika properti belum dimiliki orang lain*/
+/*Kondisi ketika ingin membeli*/
+aksi(Player,X):-
+    isProperties(X),
+    isNotIn(X),
+    write('Apakah anda ingin membeli properti ini? [y/n]'),
+    read(Inp),
+    Inp == y,!, 
+    buyProperties(Player,X),
+    write('Properti '), write(X), (' berhasil dibeli.'), 
+    beliBangunan, gantiPlayer, printNowPlayer.
+
+/*Kondisi ketika tidak ingin membeli*/
+aksi(Player,X):-
+    isProperties(X),
+    isNotIn(X),
+    write('Apakah anda ingin membeli properti ini? [y/n]'),
+    read(Inp),
+    Inp == n,
+    !, gantiPlayer, printNowPlayer.

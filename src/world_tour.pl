@@ -1,7 +1,7 @@
 /* EXTERNAL: Melakukan world tour */
 worldTour(_, Dest):-
     \+ isLoc(Dest),
-    write(Dest), write(' bukan tujuan yang valid!'), nl, !.
+    write(Dest), write(' bukan tujuan yang valid!'), nl, !, fail.
 
 worldTour(Player, Dest):-
     player(Player, _, Location, _, _, _, _, _, _),

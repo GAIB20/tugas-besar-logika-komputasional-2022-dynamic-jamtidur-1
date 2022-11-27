@@ -218,6 +218,31 @@ isLoc(tx).
 isLoc(go).
 isLoc(wt).
 
+isProperties(a1).
+isProperties(a2).
+isProperties(a3).
+isProperties(b1).
+isProperties(b2).
+isProperties(b3).
+isProperties(c1).
+isProperties(c2).
+isProperties(c3).
+isProperties(d1).
+isProperties(d2).
+isProperties(d3).
+isProperties(e1).
+isProperties(e2).
+isProperties(e3).
+isProperties(f1).
+isProperties(f2).
+isProperties(f3).
+isProperties(g1).
+isProperties(g2).
+isProperties(g3).
+isProperties(h1).
+isProperties(h2).
+
+
 /*infoLoc(ID, type, Nama, Deskripcsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color):-
 curRent(Nama, CurRent), Cost Spend di track,*/
 /*type 0: Kota
