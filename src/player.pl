@@ -1,5 +1,6 @@
 /*Deklarasi Fakta*/
 :- dynamic(player/9).
+:- dynamic(infoLoc/9).
 /* Format:
 player(Player, Username, Location, Money, PropertiesValue, Asset, Properties, Buildings, Cards) */
 player(v,'V',0,20000,0,0,[],[],[]).
@@ -66,7 +67,7 @@ check(Property,[H|T]) :-
     check(Property,T).
 
 /*Mengecek apakah properti sudah dimiliki orang lain*/
-isNotIn(Property,Properties)  :- 
+isNotIn(Property)  :- 
     player(X,_,_,_,_,_,Properties,_,_),
     player(Y,_,_,_,_,_,Properties2,_,_),
     X \= Y,
@@ -76,19 +77,22 @@ isNotIn(Property,Properties)  :-
 /*Pembelian properti berhasil*/
 buyProperties(X,Property) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
-    isNotIn(Property,Properties),
+    infoLoc(Property,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color),
+    isNotIn(Property),
     checkPropertyValue(Property,Value),
     Money > Value,!,
     PropertiesValueUpdated is PropertiesValue + Value,
     MoneyUpdated is Money - Value,
     AssetUpdated is MoneyUpdated + PropertiesValueUpdated,
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[0|Buildings],Card)).
+    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[0|Buildings],Card)),
+    retractall(infoLoc(Property,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)),
+    assertz(infoLoc(Property,Type, Nama, Deskripsi, X, CurRent, CostSpend, 0,Color)).
 
 /*Pembelian properti gagal karena sudah dimiliki*/
 buyProperties(X,Property) :- 
     player(X,_,_,_,_,_,Properties,_,_),
-    \+isNotIn(Property,Properties), !, 
+    \+isNotIn(Property), !, 
     write('Properti sudah dimiliki').
 
 /*Pembelian properti gagal karena uang tidak cukup*/
@@ -119,13 +123,16 @@ upgradeBuilding(X,A) :-
     getIndex(A,Properties,Idx),
     getValue(Buildings,Idx,Value),
     Value <4,
+    infoLoc(A,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color),
     getHarga(A,Value,Harga),
     Value2 is Value + 1,
     MoneyUpdated is Money - Harga,
     PropertiesValueUpdated is PropertiesValue + Harga,
     setValue(Value2,Buildings,Idx,Updated),
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)).
+    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)),
+    retractall(infoLoc(A,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)),
+    assertz(infoLoc(A,Type, Nama, Deskripsi, X, CurRent, CostSpend, Value2,Color)).
 
 /*================================================================================================*/
 /*PENJUALAN*/
@@ -147,11 +154,14 @@ downgradeBuilding(X,A) :-
     Value2 is Value - 1,
     getHarga(A,Value2,Harga),
     Value >0,
+    infoLoc(A,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color),
     MoneyUpdated is Money + Harga,
     PropertiesValueUpdated is PropertiesValue - Harga,
     setValue(Value2,Buildings,Idx,Updated),
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)).
+    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)),
+    retractall(infoLoc(A,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)),
+    assertz(infoLoc(A,Type, Nama, Deskripsi, X, CurRent, CostSpend, Value2,Color)).
 
 /*================================================================================================*/
 /*Menampilkan informasi dari player*/

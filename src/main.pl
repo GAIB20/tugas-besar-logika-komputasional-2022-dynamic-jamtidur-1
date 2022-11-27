@@ -18,6 +18,8 @@
 :- dynamic(nowPlayer/1).
 isExit(1).
 nowPlayer(v).
+lawan(v,w).
+lawan(w,v).
 
 printNowPlayer :- 
     write('Sekarang adalah giliran pemain '),
@@ -120,7 +122,20 @@ throwDice :-
     dice1(Dadu1), dice2(Dadu2), Dadu is Dadu1+Dadu2,
     nowPlayer(Player), move(Player, Dadu),
     currentLoc(Player, Loc), coor(Loc, LocOut), aksi(Player, LocOut).
-    
+
+/*Cek harga sewa*/
+hargaSewa(Prop,0,Sewa) :- sewa(Prop,Sewa,_,_,_,_).
+hargaSewa(Prop,1,Sewa) :- sewa(Prop,_,Sewa,_,_,_).
+hargaSewa(Prop,2,Sewa) :- sewa(Prop,_,_,Sewa,_,_).
+hargaSewa(Prop,3,Sewa) :- sewa(Prop,_,_,_,Sewa,_).
+hargaSewa(Prop,4,Sewa) :- sewa(Prop,_,_,_,_,Sewa).
+
+cekSewa(X,Prop,Sewa) :-
+    player(X,_,_,_,_,_,Props,Building,_),
+    getIndex(Prop,Props,Idx),
+    getValue(Building,Idx,Build),
+    hargaSewa(Prop,Build,Sewa).
+
 /* Mekanisme aksi di lokasi */
 /* (fp) Parkir gratis */
 aksi(Player, Loc) :-
@@ -159,29 +174,34 @@ aksi(Player, Loc) :-
 /* sisanya */
 aksi(Player,X):-
     isProperties(X),
-    nowPlayer(U),
-    \+isNotIn(X),!,
-    pemilik(X,T),
-    T \= U,
-    write('Properti ini sudah kamu miliki.'),
-    beliBangunan, gantiPlayer, printNowPlayer.
+    \+isNotIn(X),
+    belongsTo(T,X),
+    player(U,T,_,_,_,_,_,_,_),
+    U == Player,!,
+    write('Properti ini sudah kamu miliki.'),nl,
+    beliBangunan(Player,X,0), gantiPlayer, printNowPlayer.
 
 /*Kondisi ketika properti sudah dimiliki orang lain*/
 aksi(Player,X):-
     isProperties(X),
-    nowPlayer(U),
-    \+isNotIn(X),!,
-    pemilik(X,T),
-    T \= U,
-    lawan(U,A),
-    player(A,_,_,_,_,_,_,Prop,Buildings,_),
-    cekSewa(X,Prop,Buildings,Sewa),
-    write('Properti ini sudah dimiliki '), write(A), (' ! Anda harus membayar sewa sebesar '), write(Sewa),
-    subtractMoney(Sewa),
-    askSellBuilding(A,Inp),
-    gantiPlayer, printNowPlayer.
+    \+isNotIn(X),
+    belongsTo(T,X),
+    player(U,T,_,_,_,_,_,_,_),
+    U \= Player,!,
+    cekSewa(U,Prop,Sewa),
+    write('Properti ini sudah dimiliki '), write(U), write(' ! Anda harus membayar sewa sebesar '), write(Sewa),nl,
+    subtractMoney(Player,Sewa),
+    gantiPlayer, printNowPlayer,!.
 
 /*Kondisi ketika properti belum dimiliki orang lain*/
+/*Kondisi ketika tidak ingin membeli*/
+aksi(Player,X):-
+    isProperties(X),
+    isNotIn(X),
+    write('Apakah anda ingin membeli properti ini? [y/n]'),
+    read(Inp),
+    Inp == n,!, gantiPlayer, printNowPlayer.
+
 /*Kondisi ketika ingin membeli*/
 aksi(Player,X):-
     isProperties(X),
@@ -190,14 +210,24 @@ aksi(Player,X):-
     read(Inp),
     Inp == y,!, 
     buyProperties(Player,X),
-    write('Properti '), write(X), (' berhasil dibeli.'), 
-    beliBangunan, gantiPlayer, printNowPlayer.
+    write('Properti '), write('X'), write(' berhasil dibeli.'), 
+    beliBangunan(Player,X,0), gantiPlayer, printNowPlayer.
 
-/*Kondisi ketika tidak ingin membeli*/
-aksi(Player,X):-
-    isProperties(X),
-    isNotIn(X),
-    write('Apakah anda ingin membeli properti ini? [y/n]'),
+beliBangunan(Player,X,Val):- 
+    Val2 is Val + 1,
+    Val <4,
+    write('Apakah Anda ingin mengupgrade bangunan? [y/n]'),
     read(Inp),
-    Inp == n,
-    !, gantiPlayer, printNowPlayer.
+    Inp == n,!.
+
+beliBangunan(Player,X,Val):- 
+    Val2 is Val + 1,
+    Val <4,
+    write('Apakah Anda ingin mengupgrade bangunan? [y/n]'),
+    read(Inp),
+    Inp == y,
+    !, upgradeBuilding(Player,X), beliBangunan(Player,X, Val2).
+
+beliBangunan(Player,X,Val):- 
+    Val2 is Val + 1,
+    Val == 4,!,write('Bangunan sudah terupgrade sampai Landmark!'),nl,nl.
