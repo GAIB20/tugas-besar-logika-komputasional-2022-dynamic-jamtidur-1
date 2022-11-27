@@ -122,10 +122,46 @@ throwDice :-
     mthrowDice,
     dice1(Dadu1), dice2(Dadu2), Dadu is Dadu1+Dadu2,
     nowPlayer(Player), move(Player, Dadu),
-    gantiPlayer, printNowPlayer.
+    printNowPlayer.
     
 /* Mekanisme aksi di lokasi */
 /* (fp) Parkir gratis */
-aksi(Player, fp) :-
+aksi(Player, Loc) :-
+    Loc == pl, !,
     write('Parkir gratis!'), nl,
     gantiPlayer, printNowPlayer.
+
+/* (jl) Penjara */
+aksi(Player, Loc) :-
+    Loc == jl, !,
+    goToJail(Player),
+    gantiPlayer, printNowPlayer.
+
+/* (wt) World Tour */
+aksi(Player, Loc) :-
+    Loc == wt, !,
+    write('Kamu berkesempatan untuk melakukan world tour! Pilih destinasi: '),
+    read(Inp),
+    worldTour(Player, Inp),
+    gantiPlayer, printNowPlayer.
+
+/* (cc) Chance Card */
+aksi(Player, Loc) :-
+    Loc == cc,
+    pickChanceCard,
+    gantiPlayer, printNowPlayer.
+
+/* (tx) Tax */
+
+
+/* sisanya */
+aksi(Player, X, Inp) :-
+    write('Ingin membeli bangunan? [y/n] '), nl,
+    write('Command: '),
+    read(Inp),
+    buyBuilding(X,Inp),
+    gantiPlayer, printNowPlayer.
+
+buyBuilding(X,y) :- 
+    nowPlayer(Player), 
+    buyProperties(Player,X).
