@@ -97,7 +97,7 @@ printOwnership(X):-infoLoc(X,Type,_,_,_,_,_,_,_),Type > 0, write('       '),!.
 printOwnership(X):-infoLoc(X,Type,_,_,Y,_,_,_,_), Type =:= 0, Y==none,  write('       '),!.
 printOwnership(X):-infoLoc(X,Type,_,_,Y,_,_,Z,_), 
 Type =:= 0,  Y\==none,
-write('  '),  write(Y), write(Z), write('  '),!.
+write('   '),  write(Y), write(Z), write('  '),!.
 
 
 printBorderOut:-write('         ============================================================== \n'),!.
@@ -142,8 +142,6 @@ Array = [X|Tail],
 write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen1-1,printHorizontal(Tail, SenN, 0).
 /*currentLoc(Player, Loc), true jika posisis player sekarang adalah di loc
 Untuk sekarang di bawah ini bikin error
-
-Untuk sekarang di bawah ini bikin error
 */ 
 currentLoc(Player, Loc):-player(Player, _,Loc,_,_,_,_,_,_).
 
@@ -171,7 +169,6 @@ distance(Start,End):-findDistance(Start,End, Value), write(Start),write(' dan ')
 /*move(X,Y)*/
 /*go effect is not implemented yet*/
 move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
-
 X1 is CurLoc + Y,
 ChangeLoc is X1 mod 36,
 ChangeLoc < CurLoc, Moneynow is Money + 200,
@@ -184,8 +181,10 @@ ChangeLoc is X1 mod 36,
 ChangeLoc >= CurLoc, 
 retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
 assertz(player(X,A,ChangeLoc,Money,C,D,E,F,G)).
-/*Lokasi*/
 
+
+
+/*Lokasi*/
 /**FAKTA**/
 /*isLoc(X), true jika X adalah lokasi valid*/
 isLoc(a1).
@@ -290,6 +289,8 @@ curRent dikalkulasi menggunakan konditional (harus cek colorset)
 asumsi sudah punya*/
 calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z),colorset(X,Z), Y is (Rent*1.5).
 calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z), \+colorset(X,Z), Y is Rent.
+
+
 /*colorSet(X,Y), true jika player X memiliki colorSet Y*/
 colorSet(X,brown):-own(X,a1), own(X,a2),own(X,a3),!.
 colorSet(X,red):- own(X,b1), own(X,b2),own(X,b3),!.
@@ -331,8 +332,6 @@ write(PropertyLevel),!.
 
 
 /*Basis*/
-
-
 /*own(X,Y), true jika X memiliki Y*/
 own(X,Y):-infoLoc(Y,_,_,X,_,_,_,_,_).
 /*color(X,Y), true X memiliki color Y*/
