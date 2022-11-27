@@ -10,7 +10,7 @@ dice2(0).
 sameDiceNum(0).
 
 /* prosedur throwDice */
-throwDice :-
+mthrowDice :-
     random(1,7,X),
     random(1,7,Y),
     retractall(dice1(_)),
@@ -19,7 +19,6 @@ throwDice :-
     asserta(dice2(Y)),
     write('Dice 1: '), write(X), nl,
     write('Dice 2: '), write(Y), nl,
-    write('Anda maju sebanyak '), Z is X+Y, write(Z), write(' langkah.'), nl,
-    (X == Y, write('Double!')).
+    write('Anda maju sebanyak '), Z is X+Y, write(Z), write(' langkah.'), nl.
 
 sameDice :- dice1(A), dice2(B), A == B, sameDiceNum(X), Y is X+1, retractall(sameDiceNum(_)), asserta(sameDiceNum(Y)).
