@@ -282,20 +282,20 @@ infoLoc(d1,0, 'Universitas Muhammadiyah Yogyakarta','Deskripsi',none,0,0,0,yello
 infoLoc(d2,0, 'Universitas Padjajaran','Deskripsi',none,0,0,0,yellow).
 infoLoc(d3,0, 'Universitas Hasanuddin','Deskripsi',none,0,0,0,yellow).
 
-infoLoc(e1,0, 'Universitas Pendidikan Indonesia','Deskripsi',none,0,0,0,green).
-infoLoc(e2,0, 'Telkom University','Deskripsi',none,0,0,0,green).
-infoLoc(e3,0, 'Universitas Brawijaya','Deskripsi',none,0,0,0,green).
+infoLoc(e1,0, 'Universitas Pendidikan Indonesia','\n    Tahun berdiri        : 1954 \n    Lokasi               : Bandung, Jawa Barat',none,0,0,0,green).
+infoLoc(e2,0, 'Telkom University','\n    Tahun berdiri        : 2013 \n    Lokasi               : Bandung, Jawa Barat',none,0,0,0,green).
+infoLoc(e3,0, 'Universitas Brawijaya','\n    Tahun berdiri        : 1963 \n    Lokasi               : Malang, Jawa Timur',none,0,0,0,green).
 
-infoLoc(f1,0, 'Universitas Diponegoro','Deskripsi',none,0,0,0,blue).
-infoLoc(f2,0, 'Universitas Sebelas Maret','Deskripsi',none,0,0,0,blue).
-infoLoc(f3,0, 'Universitas Airlangga','Deskripsi',none,0,0,0,blue).
+infoLoc(f1,0, 'Universitas Diponegoro','\n    Tahun berdiri        : 1957 (berubah nama menjadi Universitas Diponegoro pada tahun 1960) \n    Lokasi               : Semarang, Jawa Tengah',none,0,0,0,blue).
+infoLoc(f2,0, 'Universitas Sebelas Maret','\n    Tahun berdiri        : 1976 \n    Lokasi               : Surakarta, Jawa Tengah',none,0,0,0,blue).
+infoLoc(f3,0, 'Universitas Airlangga','\n    Tahun berdiri        : 1954 \n    Lokasi               : Surabaya, Jawa Timur',none,0,0,0,blue).
 
-infoLoc(g1,0, 'Universitas Indonesia','Deskripsi',none,0,0,0,indigo).
-infoLoc(g2,0, 'Universitas Teknologi Sepuluh November','Deskripsi',none,0,0,0,indigo).
-infoLoc(g3,0, 'Institut Pertanian Bogor','Deskripsi',none,0,0,0,indigo).
+infoLoc(g1,0, 'Universitas Indonesia','\n    Tahun berdiri        : 1924 (berubah nama menjadi Universitas Indonesia pada tahun 1950) \n    Lokasi               : Depok, Jawa Barat \n                           Jakarta Pusat, DKI Jakarta',none,0,0,0,indigo).
+infoLoc(g2,0, 'Universitas Teknologi Sepuluh November','\n    Tahun berdiri        : 1957 \n    Lokasi               : Surabaya, Jawa Timur',none,0,0,0,indigo).
+infoLoc(g3,0, 'Institut Pertanian Bogor','\n    Tahun berdiri        : 1963 \n    Lokasi               : Bogor, Jawa Barat',none,0,0,0,indigo).
 
-infoLoc(h1,0, 'Universitas Gadjah Mada','Deskripsi',none,0,0,0,violet).
-infoLoc(h2,0, 'Institut Teknologi Bandung','Deskripsi',none,0,0,0,violet).
+infoLoc(h1,0, 'Universitas Gadjah Mada','\n    Tahun berdiri        : 1949 \n    Lokasi               : Sleman, Yogyakarta',none,0,0,0,violet).
+infoLoc(h2,0, 'Institut Teknologi Bandung','\n    Tahun berdiri        : 1920 (berubah nama menjadi Institut Teknologi Bandung pada tahun 1959) \n    Lokasi               : Bandung, Jawa Barat',none,0,0,0,violet).
 
 
 
