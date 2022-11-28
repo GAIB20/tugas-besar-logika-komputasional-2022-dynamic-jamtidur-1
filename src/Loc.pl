@@ -265,22 +265,22 @@ infoLoc(go, 5, 'Start Point', 'Titik Awal', _,_,_,_,_).
 infoLoc(tx, 6, 'Tax', '###### kena pajak', _,_,_,_,_).
 
 
-infoLoc(a1, 0, 'Universitas Negeri Padang', 'Padang',none,0,0,0,brown).
+infoLoc(a1, 0, 'Universitas Negeri Padang', '\n    Tahun berdiri        : 1954 \n    Lokasi               : Padang, Sumatra Barat',none,0,0,0,brown).
 
-infoLoc(a2,0, 'Universitas Sriwijaya','Deskripsi',none,0,0,0,brown).
-infoLoc(a3,0, 'Universitas Andalas','Deskripsi',none,0,0,0,brown).
+infoLoc(a2,0, 'Universitas Sriwijaya','\n    Tahun berdiri        : 1960 \n    Lokasi               : Palembang, Sumatra Selatan',none,0,0,0,brown).
+infoLoc(a3,0, 'Universitas Andalas','\n    Tahun berdiri        : 1955 \n    Lokasi               : Padang, Sumatra Barat',none,0,0,0,brown).
 
-infoLoc(b1,0, 'Universitas Negeri Semarang','Deskripsi',none,0,0,0,red).
-infoLoc(b2,0, 'Universitas Negeri Malang','Deskripsi',none,0,0,0,red).
-infoLoc(b3,0, 'Universitas Sumatera Utara','Deskripsi',none,0,0,0,red).
+infoLoc(b1,0, 'Universitas Negeri Semarang','\n    Tahun berdiri        : 1965 \n    Lokasi               : Semarang, Jawa Tengah',none,0,0,0,red).
+infoLoc(b2,0, 'Universitas Negeri Malang','\n    Tahun berdiri        : 1954 \n    Lokasi               : Malang dan Blitar, Jawa Timur',none,0,0,0,red).
+infoLoc(b3,0, 'Universitas Sumatera Utara','\n    Tahun berdiri        : 1957 \n    Lokasi               : Medan, Sumatra Utara',none,0,0,0,red).
 
-infoLoc(c1,0, 'Universitas Lampung','Deskripsi',none,0,0,0,orange).
-infoLoc(c2,0, 'Universitas Gunadarma','Deskripsi',none,0,0,0,orange).
-infoLoc(c3,0, 'Universitas Negeri Yogyakarta','Deskripsi',none,0,0,0,orange).
+infoLoc(c1,0, 'Universitas Lampung','\n    Tahun berdiri        : 1965 \n    Lokasi               : Bandar Lampung, Lampung',none,0,0,0,orange).
+infoLoc(c2,0, 'Universitas Gunadarma','\n    Tahun berdiri        : 1981 \n    Lokasi               : Depok, Jawa Barat',none,0,0,0,orange).
+infoLoc(c3,0, 'Universitas Negeri Yogyakarta','\n    Tahun berdiri        : 1964 \n    Lokasi               : Sleman, Yogyakarta',none,0,0,0,orange).
 
-infoLoc(d1,0, 'Universitas Muhammadiyah Yogyakarta','Deskripsi',none,0,0,0,yellow).
-infoLoc(d2,0, 'Universitas Padjajaran','Deskripsi',none,0,0,0,yellow).
-infoLoc(d3,0, 'Universitas Hasanuddin','Deskripsi',none,0,0,0,yellow).
+infoLoc(d1,0, 'Universitas Muhammadiyah Yogyakarta','\n    Tahun berdiri        : 1981 \n    Lokasi               : Bantul, Yogyakarta',none,0,0,0,yellow).
+infoLoc(d2,0, 'Universitas Padjajaran','\n    Tahun berdiri        : 1957 \n    Lokasi               : Jatinangor, Jawa Barat',none,0,0,0,yellow).
+infoLoc(d3,0, 'Universitas Hasanuddin','\n    Tahun berdiri        : 1956 \n    Lokasi               : Makassar, Sulawesi Selatan',none,0,0,0,yellow).
 
 infoLoc(e1,0, 'Universitas Pendidikan Indonesia','\n    Tahun berdiri        : 1954 \n    Lokasi               : Bandung, Jawa Barat',none,0,0,0,green).
 infoLoc(e2,0, 'Telkom University','\n    Tahun berdiri        : 2013 \n    Lokasi               : Bandung, Jawa Barat',none,0,0,0,green).

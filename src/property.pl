@@ -8,7 +8,7 @@ harga(b3,'Universitas Sumatera Utara','\n    Tahun berdiri        : 1957 \n    L
 harga(c1,'Universitas Lampung','\n    Tahun berdiri        : 1965 \n    Lokasi               : Bandar Lampung, Lampung',180,100,100,100,150).
 harga(c2,'Universitas Gunadarma','\n    Tahun berdiri        : 1981 \n    Lokasi               : Depok, Jawa Barat',180,100,100,100,150).
 harga(c3,'Universitas Negeri Yogyakarta','\n    Tahun berdiri        : 1964 \n    Lokasi               : Sleman, Yogyakarta',200,100,100,100,150).
-harga(d1,'Universitas Muhammadiyah Yogyakarta','\n    Tahun berdiri        : 1981 \n    Lokasi               : Bantul, Sumatra Utara',220,100,100,100,150).
+harga(d1,'Universitas Muhammadiyah Yogyakarta','\n    Tahun berdiri        : 1981 \n    Lokasi               : Bantul, Yogyakarta',220,100,100,100,150).
 harga(d2,'Universitas Padjajaran','\n    Tahun berdiri        : 1957 \n    Lokasi               : Jatinangor, Jawa Barat',220,100,100,100,150).
 harga(d3,'Universitas Hasanuddin','\n    Tahun berdiri        : 1956 \n    Lokasi               : Makassar, Sulawesi Selatan',240,100,100,100,150).
 harga(e1,'Universitas Pendidikan Indonesia','\n    Tahun berdiri        : 1954 \n    Lokasi               : Bandung, Jawa Barat',260,150,150,150,225).
