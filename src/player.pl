@@ -54,7 +54,7 @@ subtractMoney(X,A) :-
     MoneyUpdated is Money-A,
     MoneyUpdated <0, !,
     write('Maaf, uang anda tidak cukup untuk dikurangi'),nl,
-    bankrupt(X), retractall(isExit(_)), assertz(isExit(1)).
+    bankrupt(X).
 
 /*Mengganti username*/
 changeUsername(Y):-
@@ -182,8 +182,8 @@ downgradeBuilding(X,A) :-
     getIndex(A,Properties,Idx),
     getValue(Buildings,Idx,Value),
     getHarga(A,Value-1,_),
-    Value >0,
-    !, write('Tidak bisa dijual lagi').
+    Value == 0,
+    !, write('Tidak bisa dijual lagi'), fail.
 
 /*Penjualan bangunan berhasil*/
 downgradeBuilding(X,A) :-

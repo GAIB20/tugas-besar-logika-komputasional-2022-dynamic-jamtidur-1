@@ -44,12 +44,14 @@ gantiPlayer :-
 bankrupt(v) :-
     retractall(player(v,_,_,_,_,_,_,_,_)),
     assertz(player(v,'V',go,20000,0,0,[],[],[])),
-    write('Player W menang! Omedetou!').
+    write('Player W menang! Omedetou!'),
+    retractall(isExit(_)), assertz(isExit(1)).
 
 bankrupt(w) :-
     retractall(player(w,_,_,_,_,_,_,_,_)),
     assertz(player(w,'W',go,20000,0,0,[],[],[])),
-    write('Player V menang! Omedetou!').
+    write('Player V menang! Omedetou!'),
+    retractall(isExit(_)), assertz(isExit(1)).
 
 /* Mengecek kepemilikan */
 belongsTo(X, Property) :-
@@ -184,9 +186,42 @@ aksi(Player,X):-
     P == 'L',!,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
-    subtractMoney(Player,Rent),
-    addMoney(U,Rent),
+    player(Player,_,_,_,_,Asset,_,_,_), bayarSewa(Player,Asset,Rent),
     isExit(0), gantiPlayer, printNowPlayer.
+
+/* bayar sewa uang cukup */
+bayarSewa(Player,Asset,Rent):-
+    player(Player,_,_,Money,_,Asset,_,_,_),
+    Money > Rent, !,
+    subtractMoney(Player,Rent).
+
+/* bayar sewa gak bangkrut */
+bayarSewa(Player,Asset,Rent):-
+    \+ Asset < Rent,
+    write('Uang dan aset tidak mencukupi!'),nl,
+    bangkrut(Player).
+
+/* bayar sewa tapi bangkrut */ 
+bayarSewa(Player,Asset,Rent):-
+    player(Player,_,_,Money,_,Asset,_,_,_),
+    write('Uangmu: '), write(Money), nl,
+    write('Daftar propertimu: '), nl,
+    printListProperties(Properties,Buildings,1), nl,
+    write('Properti yang ingin dijual: '),
+    read(Inp),
+    bayarSewaInp(Player,Asset,Rent,Inp),
+    player(Player,_,_,MoneyN,_,Asset,_,_,_),
+    (MoneyN > Rent, bayarSewa(Player,Asset,Rent);
+    \+ (MoneyN > Rent), bayarSewa(Player,Asset,Rent)).
+
+bayarSewaInp(Player,Asset,Rent,Inp):-
+    downgradeBuildingAll(Player,X).
+
+downgradeBuildingAll(Player,X):-
+    \+ downgradeBuilding(Player,X).
+downgradeBuildingAll(Player,X):-
+    downgradeBuilding(Player,X),
+    downgradeBuildingAll(Player,X).
 
 aksi(Player,X):-
     isProperties(X),
