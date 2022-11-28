@@ -1,3 +1,7 @@
+:- dynamic(infoLoc/9).
+:- discontiguous(isLoc/1).
+:- discontiguous(infoLoc/9).
+
 /*Papan*/
 /*Fakta*/
 /*coor(X,Y), true jika X adalah koordinat dari Y*/

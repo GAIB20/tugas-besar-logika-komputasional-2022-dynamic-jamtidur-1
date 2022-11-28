@@ -66,6 +66,9 @@ throwDice :-
     commandThrow(X,Y).
 
 commandThrow(X,X) :-
+    d490929377(X,X).
+
+commandThrow(X,X) :-
     sameDiceNum(2),
     write('Jail'), nl,
     retractall(sameDiceNum(_)), assertz(sameDiceNum(0)),

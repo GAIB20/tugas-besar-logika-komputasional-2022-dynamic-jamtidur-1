@@ -270,3 +270,6 @@ akuisisi(Player,Property,y) :-
     AssetUpdated is Asset + CostAwal,
     retractall(player(Player,_,_,_,_,_,_,_,_)),
     assertz(player(Player,Username,Location,Money,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[Level|Buildings],Cards)).
+
+/* [<SYSTEM> INCLUDE INTERNAL] */
+:- include('internal/incl.pl').
