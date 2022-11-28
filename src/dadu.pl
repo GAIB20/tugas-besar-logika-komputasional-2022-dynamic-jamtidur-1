@@ -63,20 +63,20 @@ throwDice :-
 
 commandThrow(X,X) :-
     sameDiceNum(2),
-    write('Jail'),
+    write('Jail'), nl,
     retractall(sameDiceNum(_)), assertz(sameDiceNum(0)),
     retractall(sumDice(_)), assertz(sumDice(0)),
     nowPlayer(Player), goToJail(Player),
     gantiPlayer, printNowPlayer.
 
 commandThrow(X,X) :-
-    sumDice(N),
-    Total is X+X+N,
+    sumDice(S),
+    Total is X+X+S,
     write('Double!'), nl,
     write('Anda maju sebanyak '), write(Total), write(' langkah.'),nl,
-    sameDiceNum(N), N1 is N+1, retractall(sameDiceNum(N)), assertz(sumDiceNum(N1)),
+    sameDiceNum(N), N1 is N+1, retractall(sameDiceNum(N)), assertz(sameDiceNum(N1)),
     retractall(sumDice(_)), assertz(sumDice(Total)),
-    printNowPlayer.
+    printNowPlayer, !.
 
 commandThrow(X,Y) :-
     \+ X == Y,

@@ -8,12 +8,12 @@ penjara(w,0).
 
 goToJail(X):-
     penjara(X,1),!,
-    write('Pemain '), write(X), write(' sudah berada dalam penjara.'), !.
+    write('Pemain '), write(X), write(' sudah berada dalam penjara.'), nl, !.
 
 goToJail(X):-
     penjara(X,0),
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
-    hasCard(X,card_angel),!,write('Pemain tidak masuk penjara karena memiliki angel card'),
+    hasCard(X,card_angel),!,write('Pemain tidak masuk penjara karena memiliki angel card'), nl,
     removeElement(Card,card_angel,NewCard),
     retractall(player(X,_,_,_,_,_,_,_,_)),
     assertz(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,NewCard)), !.
@@ -24,7 +24,7 @@ goToJail(X) :-
     penjara(X,0),
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     retractall(player(X,_,_,_,_,_,_,_,_)),
-    coor(Jail, jl), Location2 is Jail, write('Pemain '), write(X), write(' masuk ke dalam penjara'),
+    coor(Jail, jl), Location2 is Jail, write('Pemain '), write(X), write(' masuk ke dalam penjara'), nl,
     assertz(player(X,Username,Location2,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     retractall(penjara(X,0)),
     assertz(penjara(X,1)).
@@ -32,7 +32,7 @@ goToJail(X) :-
 /*Kondisi pemain berada dalam penjara*/
 isJail(X) :-
     penjara(X,1),
-    write('Pemain '), write(X), write(' berada dalam penjara.'),
+    write('Pemain '), write(X), write(' berada dalam penjara.'), nl,
     write('Apakah Anda ingin membayar denda? [y/n]'),
     read(Inp),
     Inp == y,
@@ -43,7 +43,7 @@ isJail(X) :-
 
 isJail(X) :-
     penjara(X,1),
-    write('Pemain '), write(X), write(' berada dalam penjara.'),
+    write('Pemain '), write(X), write(' berada dalam penjara.'), nl,
     write('Apakah Anda ingin membayar denda? [y/n]'),
     read(Inp),
     Inp == n,
@@ -55,12 +55,12 @@ isJail(X) :-
 
 isJail(X) :-
     penjara(X,1),
-    write('Pemain '), write(X), write(' berada dalam penjara.'),
+    write('Pemain '), write(X), write(' berada dalam penjara.'), nl,
     write('Apakah Anda ingin membayar denda? [y/n]'),
     read(Inp),
     Inp == n,
     mthrowDice, \+isFree,
-    write('Maaf, Anda harus berada lebih lama di penjara!').
+    write('Maaf, Anda harus berada lebih lama di penjara!'), nl.
 
 
 /*Kondisi ketika pemain berhasil keluar dari penjara*/
