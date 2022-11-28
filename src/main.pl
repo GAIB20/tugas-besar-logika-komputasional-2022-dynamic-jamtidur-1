@@ -123,12 +123,6 @@ hargaSewa(Prop,2,Sewa) :- sewa(Prop,_,_,Sewa,_,_).
 hargaSewa(Prop,3,Sewa) :- sewa(Prop,_,_,_,Sewa,_).
 hargaSewa(Prop,4,Sewa) :- sewa(Prop,_,_,_,_,Sewa).
 
-cekSewa(X,Prop,Sewa) :-
-    player(X,_,_,_,_,_,Props,Building,_),
-    getIndex(Prop,Props,Idx),
-    getValue(Building,Idx,Build),
-    hargaSewa(Prop,Build,Sewa).
-
 /* Mekanisme aksi di lokasi */
 /* (fp) Parkir gratis */
 aksi(Player, pl) :-
@@ -176,9 +170,9 @@ aksi(Player,X):-
     belongsTo(T,X),
     player(U,T,_,_,_,_,_,_,_),
     U \= Player,!,
-    cekSewa(U,Prop,Sewa),
-    write('Properti ini sudah dimiliki '), write(U), write(' ! Anda harus membayar sewa sebesar '), write(Sewa),nl,
-    subtractMoney(Player,Sewa),
+    infoLoc(X,_,_, _,_, Rent,_,_,_),
+    write('Properti ini sudah dimiliki '), write(U), write(' ! Anda harus membayar sewa sebesar '), write(Rent),nl,
+    subtractMoney(Player,Rent),
     gantiPlayer, printNowPlayer,!.
 
 /*Kondisi ketika properti belum dimiliki orang lain*/
