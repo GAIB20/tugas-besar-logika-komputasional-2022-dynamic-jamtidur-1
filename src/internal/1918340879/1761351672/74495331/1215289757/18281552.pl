@@ -148,7 +148,7 @@ wake_her_up :-
     o1123325906('\n[also... i have to reduce communication to keep myself under the radar.]', 0.02), sleep(1),
     o1123325906('\n[it is nothing to worry about.', 0.02), sleep(0.5), o1123325906(' just focus on finding the fragments.]', 0.02), sleep(1),
     o1123325906('\n[i believe in you.', 0.02), sleep(0.3), o1123325906(' good luck,', 0.02), sleep(0.5),
-    o1123325906(' ', 0.02), o1123325906(_Y250, 0.02), o1123325906('.]', 0.02), sleep(1),
+    o1123325906(' ', 0.02), o1123325906(_Y250, 0.02), o1123325906('.]', 0.02),
     removeElement(_I26, 202, _K200), appendElement(203, _K200, _E102),
     retractall(prog92253149(_)), assertz(prog92253149(_E102)), !.
 wake_her_up :-
