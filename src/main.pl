@@ -185,6 +185,7 @@ aksi(Player,X):-
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
     subtractMoney(Player,Rent),
+    addMoney(U,Rent),
     isExit(0), gantiPlayer, printNowPlayer.
 
 aksi(Player,X):-
@@ -198,6 +199,7 @@ aksi(Player,X):-
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
     subtractMoney(Player,Rent),
+    addMoney(U,Rent),
     write('Apakah Anda ingin mengakuisisi Properti ini? [y/n] '),
     read(Inp),
     akuisisi(Player,X,Inp),

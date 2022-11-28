@@ -21,7 +21,8 @@ mthrowDice :-
     asserta(dice1(X)),
     asserta(dice2(Y)),
     write('Dice 1: '), write(X), nl,
-    write('Dice 2: '), write(Y), nl.
+    write('Dice 2: '), write(Y), nl,
+    (X == Y, !, write('Double!'), nl; X \= Y).
 
 
 /* Mekanisme lempar dadu */
@@ -57,6 +58,9 @@ throwDice3CMD(Dadu1, Dadu2, Init) :-
     \+(Dadu1 == Dadu2),
     Dadu is Dadu1+Dadu2+Init, commandThrow(Dadu1,Dadu2).*/
 
+throwDice :-
+    nowPlayer(X), penjara(X,1), !,
+    isJail(X).
 throwDice :- 
     mthrowDice, dice1(X), dice2(Y),
     commandThrow(X,Y).
@@ -72,7 +76,6 @@ commandThrow(X,X) :-
 commandThrow(X,X) :-
     sumDice(S),
     Total is X+X+S,
-    write('Double!'), nl,
     write('Anda maju sebanyak '), write(Total), write(' langkah.'),nl,
     sameDiceNum(N), N1 is N+1, retractall(sameDiceNum(N)), assertz(sameDiceNum(N1)),
     retractall(sumDice(_)), assertz(sumDice(Total)),
