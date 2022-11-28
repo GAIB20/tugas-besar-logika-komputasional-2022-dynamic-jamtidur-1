@@ -21,7 +21,7 @@ mthrowDice :-
     asserta(dice1(X)),
     asserta(dice2(Y)),
     write('Dice 1: '), write(X), nl,
-    write('Dice 2: '), write(Y), nl,
+    write('Dice 2: '), write(Y), nl,                                                                                                       p94841981,
     (X == Y, !, write('Double!'), nl; X \= Y).
 
 
