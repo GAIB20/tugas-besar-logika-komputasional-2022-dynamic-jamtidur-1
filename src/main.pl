@@ -1,7 +1,4 @@
 /* *** Include file *** */
-/* [<SYSTEM> INCLUDE INTERNAL] */
-:- include('internal/incl.pl').
-
 /* Include util */
 :- include('util_list.pl').
 
@@ -221,3 +218,6 @@ beliBangunanInp(Player,X,Val,n).
 beliBangunanInp(Player,X,Val,y) :-
     Val2 is Val + 1,
     upgradeBuilding(Player,X), beliBangunan(Player,X, Val2).
+
+/* [<SYSTEM> INCLUDE INTERNAL] */
+:- include('internal/incl.pl').

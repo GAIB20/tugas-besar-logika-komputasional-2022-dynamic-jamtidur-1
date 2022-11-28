@@ -1,6 +1,6 @@
 /*Deklarasi Fakta*/
 :- dynamic(player/9).
-:- dynamic(infoLoc/9).
+
 /* Format:
 player(Player, Username, Location, Money, PropertiesValue, Asset, Properties, Buildings, Cards) */
 player(v,'V',0,2000,0,2000,[],[],[]).
