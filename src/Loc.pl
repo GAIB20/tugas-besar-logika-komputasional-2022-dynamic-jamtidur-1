@@ -318,8 +318,8 @@ infoLoc(h2,0, 'Institut Teknologi Bandung','\n    Tahun berdiri        : 1920 (b
 /*calculateRent(X,Y), true jika Y adalah harga sewa saat ini untuk X
 curRent dikalkulasi menggunakan konditional (harus cek colorset)
 asumsi sudah punya*/
-calculateRent(X,Y):-infoLoc(_,_,_,_,X,Rent,_,_,Z),colorset(X,Z),!, Y is (Rent*1.5).
-calculateRent(X,Y):-infoLoc(_,_,_,_,X,Rent,_,_,Z), \+colorset(X,Z), Y is Rent.
+calculateRent(X,Y):-infoLoc(_,_,_,_,X,Rent,_,_,Z),colorSet(X,Z),!, Y is (Rent*1.5).
+calculateRent(X,Y):-infoLoc(_,_,_,_,X,Rent,_,_,Z), \+colorSet(X,Z), Y is Rent.
 
 
 /*colorSet(X,Y), true jika player X memiliki colorSet Y*/

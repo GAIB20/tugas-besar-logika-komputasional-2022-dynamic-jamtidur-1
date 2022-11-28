@@ -182,12 +182,40 @@ aksi(Player,X):-
     belongsTo(T,X),
     player(U,T,_,_,_,_,_,_,_),
     U \= Player,
-    infoLoc(X,_,_, _,_, Rent,_,P,_),
+    infoLoc(X,_,_, _,_, _,_,P,_),
+    calculateRent(U, Rent),
     P == 'L',!,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
     player(Player,_,_,_,_,Asset,_,_,_), bayarSewa(Player,Asset,Rent),
     isExit(0), gantiPlayer, printNowPlayer.
+
+aksi(Player,X):-
+    isProperties(X),
+    \+isNotIn(X),
+    belongsTo(T,X),
+    player(U,T,_,_,_,_,_,_,_),
+    U \= Player,
+    infoLoc(X,_,_, _,_, _,_,P,_),
+    calculateRent(U, Rent),
+    P \= 'L',!,
+    write('Kamu sedang berada di: '), write(X), nl,
+    write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
+    subtractMoney(Player,Rent),
+    addMoney(U,Rent),
+    write('Apakah Anda ingin mengakuisisi Properti ini? [y/n] '),
+    read(Inp),
+    akuisisi(Player,X,Inp),
+    isExit(0), gantiPlayer, printNowPlayer.
+
+/*Kondisi ketika properti belum dimiliki orang lain*/
+aksi(Player,X):-
+    isProperties(X),
+    isNotIn(X),
+    write('Kamu sedang berada di: '), write(X), nl,
+    write('Apakah kamu ingin membeli properti ini? [y/n] '),
+    read(Inp),
+    aksiInp(Player,X,Inp).
 
 /* bayar sewa uang cukup */
 bayarSewa(Player,Asset,Rent):-
@@ -222,32 +250,6 @@ downgradeBuildingAll(Player,X):-
     downgradeBuilding(Player,X),
     downgradeBuildingAll(Player,X).
 
-aksi(Player,X):-
-    isProperties(X),
-    \+isNotIn(X),
-    belongsTo(T,X),
-    player(U,T,_,_,_,_,_,_,_),
-    U \= Player,
-    infoLoc(X,_,_, _,_, Rent,_,P,_),
-    P \= 'L',!,
-    write('Kamu sedang berada di: '), write(X), nl,
-    write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
-    subtractMoney(Player,Rent),
-    addMoney(U,Rent),
-    write('Apakah Anda ingin mengakuisisi Properti ini? [y/n] '),
-    read(Inp),
-    akuisisi(Player,X,Inp),
-    isExit(0), gantiPlayer, printNowPlayer.
-
-/*Kondisi ketika properti belum dimiliki orang lain*/
-aksi(Player,X):-
-    isProperties(X),
-    isNotIn(X),
-    write('Kamu sedang berada di: '), write(X), nl,
-    write('Apakah kamu ingin membeli properti ini? [y/n] '),
-    read(Inp),
-    aksiInp(Player,X,Inp).
-
 /*Kondisi ketika tidak ingin membeli*/
 aksiInp(Player,X,n) :-
     isExit(0), gantiPlayer, printNowPlayer.
@@ -260,7 +262,7 @@ aksiInp(Player,X,y) :-
     isExit(0), gantiPlayer, printNowPlayer.
 
 beliBangunan(Player,X,4) :-
-    write('Bangunan sudah terupgrade sampai Landmark!'),nl.
+    !,write('Bangunan sudah terupgrade sampai Landmark!'),nl.
 
 beliBangunan(Player,X,Val):- 
     write('Apakah kamu ingin mengupgrade bangunan? [y/n] '),
