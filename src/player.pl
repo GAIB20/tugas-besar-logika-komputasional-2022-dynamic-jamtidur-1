@@ -107,14 +107,14 @@ buyProperties(X,Property) :-
 buyProperties(X,Property) :- 
     player(X,_,_,_,_,_,Properties,_,_),
     \+isNotIn(Property), !, 
-    write('Properti sudah dimiliki').
+    write('Properti sudah dimiliki'), fail.
 
 /*Pembelian properti gagal karena uang tidak cukup*/
 buyProperties(X,Property) :-
     player(X,_,_,Money,_,_,_,_,_),
     checkPropertyValue(Property,Value),
     Money < Value, !,
-    write('Uang tidak cukup').
+    write('Uang tidak cukup'), fail.
 
 /*Menentukan harga bangunan*/
 getHarga(A,Value,Harga) :- Value == 0, !, harga(A,_,_, _,X,_,_,_), Harga is X.
@@ -133,7 +133,7 @@ upgradeBuilding(X,A) :-
     getIndex(A,Properties,Idx),
     getValue(Buildings,Idx,Value),
     Value >= 4, !,
-    write('Bangunan sudah terupgrade sampai Landmark!').
+    write('Bangunan sudah terupgrade sampai Landmark!'), fail.
 
 /*Upgrade building berhasil*/
 upgradeBuilding(X,A) :-

@@ -211,7 +211,7 @@ aksi(Player,X):-
 /*Kondisi ketika properti belum dimiliki orang lain*/
 aksi(Player,X):-
     isProperties(X),
-    isNotIn(X),
+    isNotIn(X), !,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Apakah kamu ingin membeli properti ini? [y/n] '),
     read(Inp),
@@ -252,7 +252,7 @@ downgradeBuildingAll(Player,X):-
 
 /*Kondisi ketika tidak ingin membeli*/
 aksiInp(Player,X,n) :-
-    isExit(0), gantiPlayer, printNowPlayer.
+    !, isExit(0), gantiPlayer, printNowPlayer.
 
 /*Kondisi ketika ingin membeli*/
 aksiInp(Player,X,y) :-
@@ -269,7 +269,7 @@ beliBangunan(Player,X,Val):-
     read(Inp),
     beliBangunanInp(Player,X,Val,Inp).
 
-beliBangunanInp(Player,X,Val,n).
+beliBangunanInp(Player,X,Val,n):- !.
 
 beliBangunanInp(Player,X,Val,y) :-
     Val2 is Val + 1,
