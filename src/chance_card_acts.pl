@@ -6,7 +6,9 @@ tax_jmp:-
     coor(Coor, Location),
     findDistance(Location, tx, X), !,
     move(Player, X),
-    aksi(Player, tx).
+    write('Kena pajak!'), nl,
+    tax(Player, Y), nl,
+    subtractMoney(Player,Y), nl.
 
 /* INTERNAL: Menambahkan uang pemain aktif */
 gift_act(Gift):-

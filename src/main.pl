@@ -109,7 +109,8 @@ start :-
     write('Ketik map untuk melihat map.'), nl,
     write('Ketik help untuk melihat command tambahan.'), nl,
     write('Ketik checkPlayerDetail(<nama player>) untuk melihat detail pemain.'), nl,
-    printNowPlayer.
+    printNowPlayer,
+    randomize.
 
 help :-
     write('Command tambahan yang dapat digunakan: '), nl,
