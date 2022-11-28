@@ -170,15 +170,15 @@ distance(Start,End):-findDistance(Start,End, Value), write(Start),write(' dan ')
 /*go effect is not implemented yet*/
 move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
 X1 is CurLoc + Y,
-ChangeLoc is X1 mod 36,
-ChangeLoc < CurLoc, Moneynow is Money + 200,
+ChangeLoc is X1 mod 32,
+ChangeLoc =< CurLoc, !, Moneynow is Money + 200,
 retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
 assertz(player(X,A,ChangeLoc,Moneynow,C,D,E,F,G)).
 
 move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
 X1 is CurLoc + Y,
 ChangeLoc is X1 mod 36,
-ChangeLoc >= CurLoc, 
+ChangeLoc > CurLoc, 
 retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
 assertz(player(X,A,ChangeLoc,Money,C,D,E,F,G)).
 

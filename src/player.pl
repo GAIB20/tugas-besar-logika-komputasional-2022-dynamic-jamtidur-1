@@ -3,8 +3,8 @@
 :- dynamic(infoLoc/9).
 /* Format:
 player(Player, Username, Location, Money, PropertiesValue, Asset, Properties, Buildings, Cards) */
-player(v,'V',0,2000,0,0,[],[],[]).
-player(w,'W',0,2000,0,0,[],[],[]).
+player(v,'V',0,2000,0,2000,[],[],[]).
+player(w,'W',0,2000,0,2000,[],[],[]).
 
 /*================================================================================================*/
 /*Mekanisme Menampilkan Informasi Player*/
@@ -34,17 +34,19 @@ printLocation(X) :-
 addMoney(X,A) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     MoneyUpdated is Money+A,
+    AssetUpdated is Asset + A,
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,Asset,Properties,Buildings,Card)),
+    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,AssetUpdated,Properties,Buildings,Card)),
     write('Uang '), write(A), write(' berhasil ditambahkan ke rekening '), write(X), write('!'), nl. 
 
 /*Mekanisme pengurangan uang*/
 subtractMoney(X,A) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     MoneyUpdated is Money-A,
+    AssetUpdated is Asset-A,
     MoneyUpdated >=0, !,
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,Asset,Properties,Buildings,Card)),
+    assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,AssetUpdated,Properties,Buildings,Card)),
     write('Maaf, uang '), write(A), write(' diambil ke rekening '), write(X), write('!'). 
 
 subtractMoney(X,A) :-
