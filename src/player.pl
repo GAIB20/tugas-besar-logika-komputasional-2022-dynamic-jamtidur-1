@@ -47,7 +47,7 @@ subtractMoney(X,A) :-
     MoneyUpdated >=0, !,
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValue,AssetUpdated,Properties,Buildings,Card)),
-    write('Maaf, uang '), write(A), write(' diambil ke rekening '), write(X), write('!'). 
+    write('Maaf, uang '), write(A), write(' diambil ke rekening '), write(X), write('!'), nl.
 
 subtractMoney(X,A) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
@@ -62,7 +62,7 @@ changeUsername(Y):-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Y,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    write('Username '), write(X), write(' berhasil diganti menjadi '), write(Y).
+    write('Username '), write(X), write(' berhasil diganti menjadi '), write(Y), nl.
 
 /*================================================================================================*/
 /*Mekanisme pembelian*/

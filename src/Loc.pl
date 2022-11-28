@@ -179,7 +179,7 @@ assertz(player(X,A,ChangeLoc,Moneynow,C,Assetnow,E,F,G)).
 
 move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
 X1 is CurLoc + Y,
-ChangeLoc is X1 mod 36,
+ChangeLoc is X1 mod 32,
 ChangeLoc > CurLoc, 
 retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
 assertz(player(X,A,ChangeLoc,Money,C,D,E,F,G)).
