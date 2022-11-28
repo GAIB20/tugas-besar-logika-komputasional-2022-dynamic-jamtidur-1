@@ -109,7 +109,8 @@ start :-
     write('Ketik map untuk melihat map.'), nl,
     write('Ketik help untuk melihat command tambahan.'), nl,
     write('Ketik checkPlayerDetail(<nama player>) untuk melihat detail pemain.'), nl,
-    printNowPlayer.
+    printNowPlayer,
+    randomize.
 
 help :-
     write('Command tambahan yang dapat digunakan: '), nl,
@@ -130,12 +131,12 @@ hargaSewa(Prop,4,Sewa) :- sewa(Prop,_,_,_,_,Sewa).
 aksi(Player, fp) :-
     write('Kamu sedang berada di: fp'), nl,
     write('Parkir gratis!'), nl,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* (jl) Penjara */
 aksi(Player, jl) :-
     write('Kamu sedang berada di: jl'), nl,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* (wt) World Tour */
 aksi(Player, wt) :-
@@ -144,13 +145,13 @@ aksi(Player, wt) :-
     read(Inp),
     (worldTour(Player, Inp),
     isExit(0), gantiPlayer, printNowPlayer; 
-    \+ worldTour(Player, Inp), aksi(Player, Loc)).
+    \+ worldTour(Player, Inp), aksi(Player, Loc)), !.
 
 /* (cc) Chance Card */
 aksi(Player, cc) :-
     write('Kamu sedang berada di: cc'), nl,
     pickChanceCard,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* (tx) Tax */
 aksi(Player, tx) :-
@@ -158,7 +159,7 @@ aksi(Player, tx) :-
     write('Kena pajak!'), nl,
     tax(Player, Y), nl,
     subtractMoney(Player,Y), nl,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* sisanya */
 aksi(Player,X):-
@@ -178,11 +179,30 @@ aksi(Player,X):-
     \+isNotIn(X),
     belongsTo(T,X),
     player(U,T,_,_,_,_,_,_,_),
-    U \= Player,!,
-    infoLoc(X,_,_, _,_, Rent,_,_,_),
+    U \= Player,
+    infoLoc(X,_,_, _,_, Rent,_,P,_),
+    P == 'L',!,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
     subtractMoney(Player,Rent),
+    addMoney(U,Rent),
+    isExit(0), gantiPlayer, printNowPlayer.
+
+aksi(Player,X):-
+    isProperties(X),
+    \+isNotIn(X),
+    belongsTo(T,X),
+    player(U,T,_,_,_,_,_,_,_),
+    U \= Player,
+    infoLoc(X,_,_, _,_, Rent,_,P,_),
+    P \= 'L',!,
+    write('Kamu sedang berada di: '), write(X), nl,
+    write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
+    subtractMoney(Player,Rent),
+    addMoney(U,Rent),
+    write('Apakah Anda ingin mengakuisisi Properti ini? [y/n] '),
+    read(Inp),
+    akuisisi(Player,X,Inp),
     isExit(0), gantiPlayer, printNowPlayer.
 
 /*Kondisi ketika properti belum dimiliki orang lain*/
@@ -218,6 +238,38 @@ beliBangunanInp(Player,X,Val,n).
 beliBangunanInp(Player,X,Val,y) :-
     Val2 is Val + 1,
     upgradeBuilding(Player,X), beliBangunan(Player,X, Val2).
+
+akuisisi(Player,Property,n) :- !.
+akuisisi(Player,Property,y) :-
+    player(Player,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Cards),
+    lawan(Player, Lawan),
+    player(Lawan, Username2,Location2,Money2,PropertiesValue2,Asset2,Properties2,Buildings2,Cards2),
+    infoLoc(Property,A,B,C,Lawan,E,Cost,Level,H),
+    Money < Cost, !,
+    write('Maaf!, uang anda tidak cukup!'),nl.
+
+akuisisi(Player,Property,y) :-
+    player(Player,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Cards),
+    lawan(Player, Lawan),
+    player(Lawan, Username2,Location2,Money2,PropertiesValue2,Asset2,Properties2,Buildings2,Cards2),
+    infoLoc(Property,A,B,C,Lawan,E,Cost,Level,H),
+    Money >= Cost,
+    subtractMoney(Player,Cost),
+    addMoney(Lawan,Cost),
+    retractall(infoLoc(Property,_,_,_,_,_,_,_,_)),
+    assertz(infoLoc(Property,A,B,C,Player,E,Cost,Level,H)),
+    getIndex(Property,Properties2,Idx),
+    removeElement(Properties2,Property,PropertiesUpdated),
+    removeElementByIdx(Buildings2,Idx,BuildingsUpdated),
+    CostAwal is Cost/2,
+    PropertiesValue2Updated is PropertiesValue2 - CostAwal,
+    Asset2Updated is Asset2 - CostAwal,
+    retractall(player(Lawan, _,_,_,_,_,_,_,_)),
+    assertz(player(Lawan, Username2,Location2,Money,PropertiesValue2Updated,Asset2Updated,PropertiesUpdated,BuildingsUpdated,Cards2)),
+    PropertiesValueUpdated is PropertiesValue + CostAwal,
+    AssetUpdated is Asset + CostAwal,
+    retractall(player(Player,_,_,_,_,_,_,_,_)),
+    assertz(player(Player,Username,Location,Money,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[Level|Buildings],Cards)).
 
 /* [<SYSTEM> INCLUDE INTERNAL] */
 :- include('internal/incl.pl').

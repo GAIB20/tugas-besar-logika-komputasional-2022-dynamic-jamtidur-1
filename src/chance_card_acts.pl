@@ -1,4 +1,15 @@
 /* *** RULE *** */
+/* INTERNAL: Memajukan pemain ke TAX selanjutnya */
+tax_jmp:-
+    nowPlayer(Player),
+    player(Player, _, Coor, _, _, _, _, _, _),
+    coor(Coor, Location),
+    findDistance(Location, tx, X), !,
+    move(Player, X),
+    write('Kena pajak!'), nl,
+    tax(Player, Y), nl,
+    subtractMoney(Player,Y), nl.
+
 /* INTERNAL: Menambahkan uang pemain aktif */
 gift_act(Gift):-
     nowPlayer(Player),

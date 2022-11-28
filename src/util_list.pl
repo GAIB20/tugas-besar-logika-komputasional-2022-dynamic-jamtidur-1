@@ -45,3 +45,8 @@ removeElement([A|T],A,T) :- !.
 removeElement([H|T],A,[H|L]):-
     H \= A,
     removeElement(T,A,L).
+
+removeElementByIdx([_|T],1,T):- !.
+removeElementByIdx([H|T],Idx,[H|B]) :-
+    Idx1 is Idx-1,
+    removeElementByIdx(T,Idx1,B).
