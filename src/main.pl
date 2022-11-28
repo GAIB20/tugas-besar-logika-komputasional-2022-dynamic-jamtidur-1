@@ -182,8 +182,8 @@ aksi(Player,X):-
     belongsTo(T,X),
     player(U,T,_,_,_,_,_,_,_),
     U \= Player,
-    infoLoc(X,_,_, _,_, _,_,P,_),
-    calculateRent(U, Rent),
+    infoLoc(X,_,_, _,_, Rent,_,P,_),
+    /*calculateRent(U, Rent),*/
     P == 'L',!,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
@@ -196,13 +196,12 @@ aksi(Player,X):-
     belongsTo(T,X),
     player(U,T,_,_,_,_,_,_,_),
     U \= Player,
-    infoLoc(X,_,_, _,_, _,_,P,_),
-    calculateRent(U, Rent),
+    infoLoc(X,_,_, _,_, Rent,_,P,_),
+    /*calculateRent(U, Rent),*/
     P \= 'L',!,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
-    subtractMoney(Player,Rent),
-    addMoney(U,Rent),
+    player(Player,_,_,_,_,Asset,_,_,_), bayarSewa(Player,Asset,Rent),
     write('Apakah Anda ingin mengakuisisi Properti ini? [y/n] '),
     read(Inp),
     akuisisi(Player,X,Inp),
@@ -225,7 +224,7 @@ bayarSewa(Player,Asset,Rent):-
 
 /* bayar sewa gak bangkrut */
 bayarSewa(Player,Asset,Rent):-
-    \+ Asset < Rent,
+    Asset < Rent, !,
     write('Uang dan aset tidak mencukupi!'),nl,
     bangkrut(Player).
 
