@@ -122,8 +122,8 @@ hargaSewa(Prop,4,Sewa) :- sewa(Prop,_,_,_,_,Sewa).
 
 /* Mekanisme aksi di lokasi */
 /* (fp) Parkir gratis */
-aksi(Player, pl) :-
-    write('Kamu sedang berada di: pl'), nl,
+aksi(Player, fp) :-
+    write('Kamu sedang berada di: fp'), nl,
     write('Parkir gratis!'), nl,
     isExit(0), gantiPlayer, printNowPlayer.
 
