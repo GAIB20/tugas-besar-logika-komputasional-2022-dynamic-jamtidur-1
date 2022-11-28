@@ -33,7 +33,7 @@ goToJail(X) :-
 isJail(X) :-
     penjara(X,1),
     write('Pemain '), write(X), write(' berada dalam penjara.'),
-    write('Apakah Anda ingin membayar denda? [y/n]').
+    write('Apakah Anda ingin membayar denda? [y/n]'),
     read(Inp),
     Inp == y,
     !, write('Selamat! Anda dibebaskan dari penjara!'), nl,
@@ -44,7 +44,7 @@ isJail(X) :-
 isJail(X) :-
     penjara(X,1),
     write('Pemain '), write(X), write(' berada dalam penjara.'),
-    write('Apakah Anda ingin membayar denda? [y/n]').
+    write('Apakah Anda ingin membayar denda? [y/n]'),
     read(Inp),
     Inp == n,
     throwDice, isFree,
@@ -56,7 +56,7 @@ isJail(X) :-
 isJail(X) :-
     penjara(X,1),
     write('Pemain '), write(X), write(' berada dalam penjara.'),
-    write('Apakah Anda ingin membayar denda? [y/n]').
+    write('Apakah Anda ingin membayar denda? [y/n]'),
     read(Inp),
     Inp == n,
     mthrowDice, \+isFree,
