@@ -150,9 +150,9 @@ aksi(Player, cc) :-
 /* (tx) Tax */
 aksi(Player, tx) :-
     write('Kamu sedang berada di: tx'), nl,
-    write('Kena pajak!'),
-    tax(Player, Y),
-    subtractMoney(Player,Y),
+    write('Kena pajak!'), nl,
+    tax(Player, Y), nl,
+    subtractMoney(Player,Y), nl,
     isExit(0), gantiPlayer, printNowPlayer.
 
 /* sisanya */
