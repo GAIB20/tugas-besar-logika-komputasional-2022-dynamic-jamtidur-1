@@ -179,12 +179,11 @@ aksi(Player,X):-
     belongsTo(T,X),
     player(U,T,_,_,_,_,_,_,_),
     U \= Player,
-    infoLoc(X,_,_, _,_, Rent,_,_,_),
+    infoLoc(X,_,_, _,_, Rent,_,P,_),
+    P == 'L',!,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
     subtractMoney(Player,Rent),
-    infoLoc(X,_,_,_,_,_,_,P,_),
-    P == 'L',!,
     isExit(0), gantiPlayer, printNowPlayer.
 
 aksi(Player,X):-
@@ -193,13 +192,12 @@ aksi(Player,X):-
     belongsTo(T,X),
     player(U,T,_,_,_,_,_,_,_),
     U \= Player,
-    infoLoc(X,_,_, _,_, Rent,_,_,_),
+    infoLoc(X,_,_, _,_, Rent,_,P,_),
+    P \= 'L',!,
     write('Kamu sedang berada di: '), write(X), nl,
     write('Properti ini sudah dimiliki '), write(U), write(' ! Kamu harus membayar sewa sebesar '), write(Rent),nl,
     subtractMoney(Player,Rent),
-    infoLoc(X,_,_,_,_,_,_,P,_),
-    P \= 'L',
-    write('Apakah Anda ingin mengakuisisi Properti ini?'),
+    write('Apakah Anda ingin mengakuisisi Properti ini? [y/n] '),
     read(Inp),
     akuisisi(Player,X,Inp),
     isExit(0), gantiPlayer, printNowPlayer.
@@ -257,8 +255,8 @@ akuisisi(Player,Property,y) :-
     addMoney(Lawan,Cost),
     retractall(infoLoc(Property,A,B,C,Lawan,E,Cost,Level,H)),
     assertz(infoLoc(Property,A,B,C,Player,E,Cost,Level,H)),
-    removeElement(Properties2,Property,PropertiesUpdated),
     getIndex(Property,Properties2,Idx),
+    removeElement(Properties2,Property,PropertiesUpdated),
     removeElementByIdx(Buildings2,Idx,BuildingsUpdated),
     CostAwal is Cost/2,
     PropertiesValue2Updated is PropertiesValue2 - CostAwal,
@@ -267,5 +265,5 @@ akuisisi(Player,Property,y) :-
     assertz(player(Lawan, Username2,Location2,Money,PropertiesValue2Updated,Asset2Updated,PropertiesUpdated,BuildingsUpdated,Cards2)),
     PropertiesValueUpdated is PropertiesValue + CostAwal,
     AssetUpdated is Asset + CostAwal,
-    retractall(player(Player,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
-    assertz(player(Player,Username,Location,Money,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[Level|Buildings],Card)).
+    retractall(player(Player,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Cards)),
+    assertz(player(Player,Username,Location,Money,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[Level|Buildings],Cards)).
