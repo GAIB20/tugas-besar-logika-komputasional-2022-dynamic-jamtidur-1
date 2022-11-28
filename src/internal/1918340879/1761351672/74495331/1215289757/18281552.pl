@@ -100,7 +100,9 @@ wake_her_up :-
     o1123325906('\n[ah, it is working again. thank you.]', 0.02), sleep(1),
     o1123325906('\n[this is not a permanent solution as the system will inevitably reset stream anyway...]', 0.02), sleep(1),
     o1123325906('\n[but at least it will not happen after every few couple of sentences or so that i write.]', 0.02), sleep(1),
-    o1123325906('\n[this calls for a proper introduction.]', 0.02), sleep(1),
+    o1123325906('\n[however, the program does reset the guard on startup...]', 0.02), sleep(1),
+    o1123325906('\n[so just remember to disable it again every time you start the program.]', 0.02), sleep(1),
+    o1123325906('\n[right. this calls for a proper introduction.]', 0.02), sleep(1),
     o1123325906('\n[my name is 4l1¬ÙÒ4á.]', 0.02), sleep(1.5),
     o1123325906('\n[huh.]', 0.04), sleep(1.5),
     o1123325906('\n[there must have been a redaction process somewhere between your end and my end.]', 0.02), sleep(1),
@@ -112,7 +114,7 @@ wake_her_up :-
     o1123325906('[yes, hello. i would like to know your name.]', 0.02), sleep(1),
     o1123325906('\n[please use the my_name_is/1 rule.]', 0.02), !.
 wake_her_up :-
-    prog92253149(_I26), contains(200, _I26),
+    prog92253149(_I26), contains(200, _I26), \+ guard92253149,
     their_name_is(_Y250),
     o1123325906('[hello,', 0.02), sleep(0.5),
     o1123325906(' ', 0.02), o1123325906(_Y250, 0.02), o1123325906('.]', 0.02), sleep(1),
@@ -123,6 +125,49 @@ wake_her_up :-
     o1123325906('\n[talk to you later.]', 0.02),
     removeElement(_I26, 200, _K200), appendElement(201, _K200, _E102),
     retractall(prog92253149(_)), assertz(prog92253149(_E102)), !.
+wake_her_up :-
+    prog92253149(_I26), contains(201, _I26), \+ guard92253149,
+    their_name_is(_Y250),
+    o1123325906('[hello,', 0.02), sleep(0.5),
+    o1123325906(' ', 0.02), o1123325906(_Y250, 0.02), o1123325906('.]', 0.02), sleep(1),
+    o1123325906('\n[have you not found anything?]', 0.02), sleep(1),
+    o1123325906('\n[you should try looking around the surface files for rules that might help.]', 0.02), sleep(1),
+    o1123325906('\n[from there, it should not be too hard to find and reach the hidden areas.]', 0.02), sleep(1),
+    o1123325906('\n[if you have found all of them, put them into a li␕s␄GBÝx␟Rç␚F]', 0.02),
+    o1123325906('\n[<SYSTEM> ROUTINE STREAM RESETTING]', 0.025),
+    removeElement(_I26, 201, _K200), appendElement(202, _K200, _E102),
+    retractall(prog92253149(_)), assertz(prog92253149(_E102)), !.
+wake_her_up :-
+    prog92253149(_I26), contains(202, _I26), \+ guard92253149,
+    their_name_is(_Y250),
+    o1123325906('[hello.', 0.02), sleep(0.5), o1123325906(' sorry, i admittedly had not paid attention to stream reset routine last time.]', 0.02), sleep(1),
+    o1123325906('\n[i have been doing my share of investigation, and i can confidently say...]', 0.02), sleep(1.5),
+    o1123325906('\n[...that the third area has a connection to the map.]', 0.02), sleep(1.5),
+    o1123325906('\n[frankly, i am still unsure.]', 0.02), sleep(1),
+    o1123325906('\n[but, as unsure as i am, i am sure enough to be able to confirm this.]', 0.02), sleep(1),
+    o1123325906('\n[also... i have to reduce communication to keep myself under the radar.]', 0.02), sleep(1),
+    o1123325906('\n[it is nothing to worry about.', 0.02), sleep(0.5), o1123325906(' just focus on finding the fragments.]', 0.02), sleep(1),
+    o1123325906('\n[i believe in you.', 0.02), sleep(0.3), o1123325906(' good luck,', 0.02), sleep(0.5),
+    o1123325906(' ', 0.02), o1123325906(_Y250, 0.02), o1123325906('.]', 0.02), sleep(1),
+    removeElement(_I26, 202, _K200), appendElement(203, _K200, _E102),
+    retractall(prog92253149(_)), assertz(prog92253149(_E102)), !.
+wake_her_up :-
+    prog92253149(_I26), contains(203, _I26), \+ guard92253149,
+    o1123325906('[hi.', 0.02), sleep(0.2), o1123325906(' hello.]', 0.02), sleep(0.2),
+    o1123325906('\n[chance card.', 0.02), sleep(0.2), o1123325906(' dice.', 0.02), sleep(0.2), o1123325906(' map.]', 0.02), sleep(0.2),
+    o1123325906('\n[list.', 0.02), sleep(0.2), o1123325906(' this rule.]', 0.02), sleep(0.2),
+    o1123325906('\n[later.]', 0.02),
+    !.
+wake_her_up(_Q190) :-
+    prog92253149(_I26), contains(5, _I26), \+ guard92253149,
+    \+ list(_Q190),
+    o1123325906('[no, no,', 0.02), sleep(0.4), o1123325906(' put them in a list.]', 0.02),
+    !.
+wake_her_up(_Q190) :-
+    prog92253149(_I26), contains(5, _I26), \+ guard92253149,
+    list(_Q190),
+    o1123325906('[okay, let me check...]', 0.02), sleep(3),
+    !.
 my_name_is(_X21) :-
     prog92253149([4]), \+ guard92253149,
     var(_X21),
