@@ -100,7 +100,11 @@ askSellBuilding(X, Inp) :-
 /* PROGRAM UTAMA */
 /* Pemain akan mengetik command start */
 start :-
-    retractall(isExit(1)), asserta(isExit(0)), retractall(nowPlayer(_)), asserta(nowPlayer(v)),
+    retractall(isExit(1)), asserta(isExit(0)),
+    retractall(nowPlayer(_)), asserta(nowPlayer(v)),
+    retractall(player(_,_,_,_,_,_,_,_,_)),
+    assertz(player(v,'V',0,2000,0,2000,[],[],[])),
+    assertz(player(w,'W',0,2000,0,2000,[],[],[])),
     write('Welcome to isekai!1!1'), nl,
     write('Ketik map untuk melihat map.'), nl,
     write('Ketik help untuk melihat command tambahan.'), nl,
@@ -111,7 +115,8 @@ help :-
     write('Command tambahan yang dapat digunakan: '), nl,
     write('1. map                      : untuk melihat map'), nl,
     write('2. ingfo(<nama player)      : untuk melihat pemain'), nl,
-    write('3. checkPropertyDetail(X)   : melihat detail properti').
+    write('3. checkPropertyDetail(X)   : melihat detail properti'), nl,
+    write('4. checkLocationDetail(X)   : melihat detail lokasi').
 
 /*Cek harga sewa*/
 hargaSewa(Prop,0,Sewa) :- sewa(Prop,Sewa,_,_,_,_).
