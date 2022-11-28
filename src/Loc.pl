@@ -97,7 +97,7 @@ printOwnership(X):-infoLoc(X,Type,_,_,_,_,_,_,_),Type > 0, write('       '),!.
 printOwnership(X):-infoLoc(X,Type,_,_,Y,_,_,_,_), Type =:= 0, Y==none,  write('       '),!.
 printOwnership(X):-infoLoc(X,Type,_,_,Y,_,_,Z,_), 
 Type =:= 0,  Y\==none,
-write('  '),  write(Y), write(Z), write('  '),!.
+write('   '),  write(Y), write(Z), write('  '),!.
 
 
 printBorderOut:-write('         ============================================================== \n'),!.
@@ -142,8 +142,6 @@ Array = [X|Tail],
 write('|  '),display(X),write('  | '),printOwnership(X),write('\n'), SenN is Sen1-1,printHorizontal(Tail, SenN, 0).
 /*currentLoc(Player, Loc), true jika posisis player sekarang adalah di loc
 Untuk sekarang di bawah ini bikin error
-
-Untuk sekarang di bawah ini bikin error
 */ 
 currentLoc(Player, Loc):-player(Player, _,Loc,_,_,_,_,_,_).
 
@@ -171,21 +169,22 @@ distance(Start,End):-findDistance(Start,End, Value), write(Start),write(' dan ')
 /*move(X,Y)*/
 /*go effect is not implemented yet*/
 move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
-
 X1 is CurLoc + Y,
-ChangeLoc is X1 mod 36,
-ChangeLoc < CurLoc, Moneynow is Money + 200,
+ChangeLoc is X1 mod 32,
+ChangeLoc =< CurLoc, !, Moneynow is Money + 200,
 retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
 assertz(player(X,A,ChangeLoc,Moneynow,C,D,E,F,G)).
 
 move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
 X1 is CurLoc + Y,
 ChangeLoc is X1 mod 36,
-ChangeLoc >= CurLoc, 
+ChangeLoc > CurLoc, 
 retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
 assertz(player(X,A,ChangeLoc,Money,C,D,E,F,G)).
-/*Lokasi*/
 
+
+
+/*Lokasi*/
 /**FAKTA**/
 /*isLoc(X), true jika X adalah lokasi valid*/
 isLoc(a1).
@@ -217,6 +216,31 @@ isLoc(fp).
 isLoc(tx).
 isLoc(go).
 isLoc(wt).
+
+isProperties(a1).
+isProperties(a2).
+isProperties(a3).
+isProperties(b1).
+isProperties(b2).
+isProperties(b3).
+isProperties(c1).
+isProperties(c2).
+isProperties(c3).
+isProperties(d1).
+isProperties(d2).
+isProperties(d3).
+isProperties(e1).
+isProperties(e2).
+isProperties(e3).
+isProperties(f1).
+isProperties(f2).
+isProperties(f3).
+isProperties(g1).
+isProperties(g2).
+isProperties(g3).
+isProperties(h1).
+isProperties(h2).
+
 
 /*infoLoc(ID, type, Nama, Deskripcsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color):-
 curRent(Nama, CurRent), Cost Spend di track,*/
@@ -288,8 +312,10 @@ infoLoc(h2,0, 'Institut Teknologi Bandung','Deskripsi',none,0,0,0,violet).
 /*calculateRent(X,Y), true jika Y adalah harga sewa saat ini untuk X
 curRent dikalkulasi menggunakan konditional (harus cek colorset)
 asumsi sudah punya*/
-calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z),colorset(X,Z), Y is (Rent*1.5).
-calculateRent(X,Y):-infoLoc(X,_,_,_,Rent,_,_,Z), \+colorset(X,Z), Y is Rent.
+calculateRent(X,Y):-infoLoc(_,_,_,_,X,Rent,_,_,Z),colorset(X,Z),!, Y is (Rent*1.5).
+calculateRent(X,Y):-infoLoc(_,_,_,_,X,Rent,_,_,Z), \+colorset(X,Z), Y is Rent.
+
+
 /*colorSet(X,Y), true jika player X memiliki colorSet Y*/
 colorSet(X,brown):-own(X,a1), own(X,a2),own(X,a3),!.
 colorSet(X,red):- own(X,b1), own(X,b2),own(X,b3),!.
@@ -324,15 +350,13 @@ write('\nBiaya Sewa Saat Ini  : '),
 write(CurRent),
 write('\nBiaya Akuisisi       : '),
 write(CostSpend),
-write('\nTingkata Properti    : '),
+write('\nTingkatan Properti    : '),
 write(PropertyLevel),!.
 
 
 
 
 /*Basis*/
-
-
 /*own(X,Y), true jika X memiliki Y*/
 own(X,Y):-infoLoc(Y,_,_,X,_,_,_,_,_).
 /*color(X,Y), true X memiliki color Y*/
