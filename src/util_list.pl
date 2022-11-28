@@ -12,6 +12,12 @@ contains(_,[]) :- !, fail.
 contains(A,[A|_]) :- !.
 contains(A,[H|T]) :- contains(A,T).
 
+/* mengembalikan banyak elemen dalam list */
+lengthList([],0):- !.
+lengthList([_|T],C):-
+    lengthList(T,C1),
+    C is C1+1.
+
 /* mengembalikan indeks dari suatu elemen dalam list, -1 jika tidak ada */
 getIndex(_,[],-1) :- !.
 getIndex(A,[A|_],1) :- !.

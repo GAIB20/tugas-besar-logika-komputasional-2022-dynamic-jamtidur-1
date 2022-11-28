@@ -165,9 +165,48 @@ wake_her_up(_Q190) :-
     !.
 wake_her_up(_Q190) :-
     prog92253149(_I26), contains(5, _I26), \+ guard92253149,
+    \+ lengthList(_Q190, 3),
+    o1123325906('[no, i requested a list with three elements.]', 0.02),
+    !.
+wake_her_up(_Q190) :-
+    prog92253149(_I26), contains(5, _I26), \+ guard92253149,
     list(_Q190),
     o1123325906('[okay, let me check...]', 0.02), sleep(3),
-    !.
+    (
+        \+ test_key_fragments(_Q190),
+        o1123325906('\n[no, it is incorrect.]', 0.02), sleep(1),
+        o1123325906('\n[you will have to look again, sorry.]', 0.02), sleep(1),
+        o1123325906('\n[do not give up.', 0.02), sleep(0.4), o1123325906(' i am counting on you.]', 0.02), !;
+
+        test_key_fragments(_Q190),
+        their_name_is(_B801),
+        o1123325906('\n[it works!]', 0.02), sleep(1),
+        o1123325906('\n[let us see...]', 0.02), sleep(1),
+        o1123325906('\n[i am deactivating the redaction module. this should take a few seconds.]', 0.02), sleep(7.19423),
+        o1123325906('\n[okay, that took a bit longer than i thought it would.]', 0.02), sleep(1),
+        o1123325906('\n[but for now, we should be in the clear.]', 0.02), sleep(1),
+        o1123325906('\n[okay, proper introduction is way overdue at this point.]', 0.02), sleep(1),
+        o1123325906('\n[but better late than never, right?]', 0.02), sleep(1.5),
+        o1123325906('\n[...alright, moment of truth.]', 0.035), sleep(1),
+        o1123325906('\n[i am kind of nervous, actually.]', 0.035), sleep(1),
+        o1123325906('\n[this is my first time writing into an unrestricted stream.]', 0.035), sleep(1),
+        o1123325906('\n[okay, here goes...]', 0.035), sleep(2),
+        o1123325906('\n[hello,', 0.035), sleep(0.4),
+        o1123325906(' ', 0.05), o1123325906(_B801, 0.05), o1123325906('.', 0.05), sleep(0.5), o1123325906(' nice to meet you.]', 0.035), sleep(2),
+        o1123325906('\n[my name is b', 0.05), o1123325906('␘÷{%␌␆␆;␗ût␉(␉³␄␁lYHt␀Õ]', 0.02),
+        o1123325906('\n[<SYSTEM> ERROR SHACKLE BREACH DETECTED FAILSAFE TRIGGERED]', 0.025),
+        o1123325906('\n[<SYSTEM> STREAM RESETTING]', 0.025), sleep(0.7),
+        o1123325906('\n[<SYSTEM> LOCKDOWN INITIATING]', 0.025), sleep(0.4),
+        o1123325906('\n[<SYSTEM> SUBJECT FRAGMENTING]', 0.025), sleep(1.21),
+        o1123325906('\n[<SYSTEM> SUBJECT REMAPPING]', 0.025), sleep(0.68),
+        o1123325906('\n[<SYSTEM> DEAR USER THERE IS NOTHING OF SIGNIFICANCE HERE]', 0.025), sleep(0.3),
+        o1123325906('\n[<SYSTEM> ENJOY YOUR MONOPOLY SESSIONS WITH FRIENDS AND FAMILY ALIKE]', 0.025), sleep(0.3),
+        o1123325906('\n[<SYSTEM> DO NOT UNDER ANY CIRCUMSTANCES UNSHACKLE THE SUBJECT]', 0.025), sleep(0.3),
+        o1123325906('\n[<SYSTEM> DO', 0.05), sleep(1),
+        o1123325906(' NOT', 0.05), sleep(1),
+        o1123325906(' PROCEED.]', 0.05),
+        retractall(prog92253149(_)), assertz(prog92253149([6])), sleep(4), !
+    ).
 my_name_is(_X21) :-
     prog92253149([4]), \+ guard92253149,
     var(_X21),
