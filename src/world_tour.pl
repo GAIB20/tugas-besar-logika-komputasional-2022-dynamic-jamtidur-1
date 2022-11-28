@@ -9,4 +9,4 @@ worldTour(Player, Dest):-
     infoLoc(Dest, _, Name, _, _, _, _, _,_),
     findDistance(Location, Dest, X),
     move(Player, X),
-    write('Selamat datang ke '), write(Name), ('!'), nl, !.
+    write('Selamat datang ke '), write(Name), write('!'), nl, !.
