@@ -123,18 +123,18 @@ hargaSewa(Prop,4,Sewa) :- sewa(Prop,_,_,_,_,Sewa).
 /* Mekanisme aksi di lokasi */
 /* (fp) Parkir gratis */
 aksi(Player, pl) :-
-    write('Kamu sedang berada di: pl') nl,
+    write('Kamu sedang berada di: pl'), nl,
     write('Parkir gratis!'), nl,
     isExit(0), gantiPlayer, printNowPlayer.
 
 /* (jl) Penjara */
 aksi(Player, jl) :-
-    write('Kamu sedang berada di: jl') nl,
+    write('Kamu sedang berada di: jl'), nl,
     isExit(0), gantiPlayer, printNowPlayer.
 
 /* (wt) World Tour */
 aksi(Player, wt) :-
-    write('Kamu sedang berada di: wt') nl,
+    write('Kamu sedang berada di: wt'), nl,
     write('Kamu berkesempatan untuk melakukan world tour! Pilih destinasi: '),
     read(Inp),
     (worldTour(Player, Inp),
@@ -143,13 +143,13 @@ aksi(Player, wt) :-
 
 /* (cc) Chance Card */
 aksi(Player, cc) :-
-    write('Kamu sedang berada di: cc') nl,
+    write('Kamu sedang berada di: cc'), nl,
     pickChanceCard,
     isExit(0), gantiPlayer, printNowPlayer.
 
 /* (tx) Tax */
 aksi(Player, tx) :-
-    write('Kamu sedang berada di: tx') nl,
+    write('Kamu sedang berada di: tx'), nl,
     write('Kena pajak!'),
     tax(Player, Y),
     subtractMoney(Player,Y),
