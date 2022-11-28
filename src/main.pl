@@ -116,13 +116,6 @@ help :-
     write('2. ingfo(<nama player)      : untuk melihat pemain'), nl,
     write('3. checkPropertyDetail(X)   : melihat detail properti').
 
-/* Mekanisme lempar dadu */
-throwDice :-
-    mthrowDice,
-    dice1(Dadu1), dice2(Dadu2), Dadu is Dadu1+Dadu2,
-    nowPlayer(Player), move(Player, Dadu),
-    currentLoc(Player, Loc), coor(Loc, LocOut), aksi(Player, LocOut).
-
 /*Cek harga sewa*/
 hargaSewa(Prop,0,Sewa) :- sewa(Prop,Sewa,_,_,_,_).
 hargaSewa(Prop,1,Sewa) :- sewa(Prop,_,Sewa,_,_,_).
@@ -138,20 +131,17 @@ cekSewa(X,Prop,Sewa) :-
 
 /* Mekanisme aksi di lokasi */
 /* (fp) Parkir gratis */
-aksi(Player, Loc) :-
-    Loc == pl, !,
+aksi(Player, pl) :-
     write('Parkir gratis!'), nl,
     gantiPlayer, printNowPlayer.
 
 /* (jl) Penjara */
-aksi(Player, Loc) :-
-    Loc == jl, !,
+aksi(Player, jl) :-
     goToJail(Player),
     gantiPlayer, printNowPlayer.
 
 /* (wt) World Tour */
-aksi(Player, Loc) :-
-    Loc == wt, !,
+aksi(Player, wt) :-
     write('Kamu berkesempatan untuk melakukan world tour! Pilih destinasi: '),
     read(Inp),
     (worldTour(Player, Inp),
@@ -159,14 +149,12 @@ aksi(Player, Loc) :-
     \+ worldTour(Player, Inp), aksi(Player, Loc)).
 
 /* (cc) Chance Card */
-aksi(Player, Loc) :-
-    Loc == cc, !,
+aksi(Player, cc) :-
     pickChanceCard,
     gantiPlayer, printNowPlayer.
 
 /* (tx) Tax */
-aksi(Player, Loc) :-
-    Loc == tx, !,
+aksi(Player, tx) :-
     write('Kena pajak!'),
     tax(Player, Y),
     subtractMoney(Player,Y).
@@ -208,9 +196,9 @@ aksi(Player,X):-
     isNotIn(X),
     write('Apakah anda ingin membeli properti ini? [y/n]'),
     read(Inp),
-    Inp == y,!, 
+    Inp == y, 
     buyProperties(Player,X),
-    write('Properti '), write('X'), write(' berhasil dibeli.'), 
+    write('Properti '), write('X'), write(' berhasil dibeli.'), nl,
     beliBangunan(Player,X,0), gantiPlayer, printNowPlayer.
 
 beliBangunan(Player,X,Val):- 
