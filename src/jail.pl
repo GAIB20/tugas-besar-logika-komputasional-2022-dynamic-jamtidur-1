@@ -47,7 +47,7 @@ isJail(X) :-
     write('Apakah Anda ingin membayar denda? [y/n]').
     read(Inp),
     Inp == n,
-    .throwDice, isFree,
+    throwDice, isFree,
     write('Anda mendapat double sebanyak 3 kali! Anda bebas dari penjara!'), nl,
     retractall(penjara(X,1)),
     assertz(penjara(X,0)),

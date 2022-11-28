@@ -52,7 +52,7 @@ subtractMoney(X,A) :-
     MoneyUpdated is Money-A,
     MoneyUpdated <0, !,
     write('Maaf, uang anda tidak cukup untuk dikurangi'),nl,
-    bankrupt(X).
+    bankrupt(X), retractall(isExit(_)), assertz(isExit(1)).
 
 /*Mengganti username*/
 changeUsername(Y):-
