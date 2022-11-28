@@ -350,7 +350,7 @@ write('\nBiaya Sewa Saat Ini  : '),
 write(CurRent),
 write('\nBiaya Akuisisi       : '),
 write(CostSpend),
-write('\nTingkata Properti    : '),
+write('\nTingkatan Properti    : '),
 write(PropertyLevel),!.
 
 

@@ -95,10 +95,11 @@ buyProperties(X,Property) :-
     MoneyUpdated is Money - Value,
     AssetUpdated is MoneyUpdated + PropertiesValueUpdated,
     sewa(Property,RentOut,_,_,_,_),
+    SpendUpdate is Value*2,
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,AssetUpdated,[Property|Properties],[0|Buildings],Card)),
     retractall(infoLoc(Property,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)),
-    assertz(infoLoc(Property,Type, Nama, Deskripsi, X, RentOut, CostSpend, 0,Color)).
+    assertz(infoLoc(Property,Type, Nama, Deskripsi, X, RentOut, SpendUpdate, 0,Color)).
 
 /*Pembelian properti gagal karena sudah dimiliki*/
 buyProperties(X,Property) :- 
@@ -146,10 +147,11 @@ upgradeBuilding(X,A) :-
     sewa(Property,_,_,_,_,RentOut),
     PropertiesValueUpdated is PropertiesValue + Harga,
     setValue(Value2,Buildings,Idx,Updated),
+    SpendUpdate is CostSpend + Harga*2,
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)),
     retractall(infoLoc(A,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)),
-    assertz(infoLoc(A,Type, Nama, Deskripsi, X, RentOut, CostSpend, 'L',Color)).
+    assertz(infoLoc(A,Type, Nama, Deskripsi, X, RentOut, SpendUpdate, 'L',Color)).
 
 upgradeBuilding(X,A) :-
     player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card),
@@ -163,10 +165,11 @@ upgradeBuilding(X,A) :-
     sewaBuilding(A,Value2,RentOut),
     PropertiesValueUpdated is PropertiesValue + Harga,
     setValue(Value2,Buildings,Idx,Updated),
+    SpendUpdate is CostSpend + Harga*2,
     retractall(player(X,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Card)),
     assertz(player(X,Username,Location,MoneyUpdated,PropertiesValueUpdated,Asset,Properties,Updated,Card)),
     retractall(infoLoc(A,Type, Nama, Deskripsi, Pemilik, CurRent, CostSpend, PropertyLevel,Color)),
-    assertz(infoLoc(A,Type, Nama, Deskripsi, X, RentOut, CostSpend, Value2,Color)).
+    assertz(infoLoc(A,Type, Nama, Deskripsi, X, RentOut, SpendUpdate, Value2,Color)).
 
 /*================================================================================================*/
 /*PENJUALAN*/
