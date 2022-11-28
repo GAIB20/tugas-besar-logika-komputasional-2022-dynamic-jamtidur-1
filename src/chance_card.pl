@@ -27,6 +27,7 @@ act_chance_card(Card):-
     /* Format:
     Card == card_name,      rule, ..., !; */
     Card == card_dummy,     write('dummycard'), nl, !;
+    Card == card_tax_jmp,   print_chance_card(Card), tax_jmp, !;
     Card == card_tax_smol,  print_chance_card(Card), tax_act(100), !;
     Card == card_tax_med,   print_chance_card(Card), tax_act(500), !;
     Card == card_tax_beeg,  print_chance_card(Card), tax_act(4000), !;

@@ -67,7 +67,7 @@ commandThrow(X,X) :-
     retractall(sameDiceNum(_)), assertz(sameDiceNum(0)),
     retractall(sumDice(_)), assertz(sumDice(0)),
     nowPlayer(Player), goToJail(Player),
-    gantiPlayer, printNowPlayer.
+    gantiPlayer, printNowPlayer, !.
 
 commandThrow(X,X) :-
     sumDice(S),
@@ -87,4 +87,4 @@ commandThrow(X,Y) :-
     currentLoc(Player, Loc), coor(Loc, LocOut), 
     retractall(sameDiceNum(_)), assertz(sameDiceNum(0)),
     retractall(sumDice(_)), assertz(sumDice(0)),
-    aksi(Player, LocOut).
+    aksi(Player, LocOut), !.

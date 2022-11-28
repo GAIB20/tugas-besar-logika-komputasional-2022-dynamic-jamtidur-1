@@ -130,12 +130,12 @@ hargaSewa(Prop,4,Sewa) :- sewa(Prop,_,_,_,_,Sewa).
 aksi(Player, fp) :-
     write('Kamu sedang berada di: fp'), nl,
     write('Parkir gratis!'), nl,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* (jl) Penjara */
 aksi(Player, jl) :-
     write('Kamu sedang berada di: jl'), nl,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* (wt) World Tour */
 aksi(Player, wt) :-
@@ -144,13 +144,13 @@ aksi(Player, wt) :-
     read(Inp),
     (worldTour(Player, Inp),
     isExit(0), gantiPlayer, printNowPlayer; 
-    \+ worldTour(Player, Inp), aksi(Player, Loc)).
+    \+ worldTour(Player, Inp), aksi(Player, Loc)), !.
 
 /* (cc) Chance Card */
 aksi(Player, cc) :-
     write('Kamu sedang berada di: cc'), nl,
     pickChanceCard,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* (tx) Tax */
 aksi(Player, tx) :-
@@ -158,7 +158,7 @@ aksi(Player, tx) :-
     write('Kena pajak!'), nl,
     tax(Player, Y), nl,
     subtractMoney(Player,Y), nl,
-    isExit(0), gantiPlayer, printNowPlayer.
+    isExit(0), gantiPlayer, printNowPlayer, !.
 
 /* sisanya */
 aksi(Player,X):-

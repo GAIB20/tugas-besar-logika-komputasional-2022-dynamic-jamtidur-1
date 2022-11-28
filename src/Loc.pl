@@ -168,12 +168,14 @@ findDistance(Start, End, Value):-Start \== End, coor(X, Start), X1 is X+1, coor(
 distance(Start,End):-findDistance(Start,End, Value), write(Start),write(' dan '), write(End), write(' berjarak: '), write(Value),nl,!.
 /*move(X,Y)*/
 /*go effect is not implemented yet*/
-move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
+move(X,Y):-player(X,A,CurLoc,Money,C,Asset,E,F,G),
 X1 is CurLoc + Y,
 ChangeLoc is X1 mod 32,
-ChangeLoc =< CurLoc, !, Moneynow is Money + 200,
-retractall(player(X,A,CurLoc,Money,C,D,E,F,G)),
-assertz(player(X,A,ChangeLoc,Moneynow,C,D,E,F,G)).
+ChangeLoc =< CurLoc, !,
+Moneynow is Money + 200,
+Assetnow is Asset + 200,
+retractall(player(X,A,CurLoc,Money,C,Asset,E,F,G)),
+assertz(player(X,A,ChangeLoc,Moneynow,C,Assetnow,E,F,G)).
 
 move(X,Y):-player(X,A,CurLoc,Money,C,D,E,F,G),
 X1 is CurLoc + Y,
