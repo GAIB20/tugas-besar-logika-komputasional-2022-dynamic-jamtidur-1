@@ -211,8 +211,7 @@ bayarSewa(Player,Asset,Rent):-
     read(Inp),
     bayarSewaInp(Player,Asset,Rent,Inp),
     player(Player,_,_,MoneyN,_,Asset,_,_,_),
-    (MoneyN > Rent, bayarSewa(Player,Asset,Rent);
-    \+ (MoneyN > Rent), bayarSewa(Player,Asset,Rent)).
+    bayarSewa(Player,Asset,Rent).
 
 bayarSewaInp(Player,Asset,Rent,Inp):-
     downgradeBuildingAll(Player,X).
