@@ -244,6 +244,15 @@ akuisisi(Player,Property,y) :-
     lawan(Player, Lawan),
     player(Lawan, Username2,Location2,Money2,PropertiesValue2,Asset2,Properties2,Buildings2,Cards2),
     infoLoc(Property,A,B,C,Lawan,E,Cost,Level,H),
+    Money < Cost, !,
+    write('Maaf!, uang anda tidak cukup!'),nl.
+
+akuisisi(Player,Property,y) :-
+    player(Player,Username,Location,Money,PropertiesValue,Asset,Properties,Buildings,Cards),
+    lawan(Player, Lawan),
+    player(Lawan, Username2,Location2,Money2,PropertiesValue2,Asset2,Properties2,Buildings2,Cards2),
+    infoLoc(Property,A,B,C,Lawan,E,Cost,Level,H),
+    Money >= Cost,
     subtractMoney(Player,Cost),
     addMoney(Lawan,Cost),
     retractall(infoLoc(Property,A,B,C,Lawan,E,Cost,Level,H)),
